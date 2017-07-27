@@ -144,7 +144,6 @@
             // 
             this.txtAttachmentPath.Location = new System.Drawing.Point(4, 418);
             this.txtAttachmentPath.Name = "txtAttachmentPath";
-            this.txtAttachmentPath.ReadOnly = true;
             this.txtAttachmentPath.Size = new System.Drawing.Size(233, 20);
             this.txtAttachmentPath.TabIndex = 11;
             // 
