@@ -34,28 +34,36 @@ namespace OutlookTools
 
             // Look up the user's EWS endpoint by using Autodiscover.
             service.AutodiscoverUrl(UserName, RedirectionCallback);
-            
+
             // Create the item view limit based on the number of records requested from the Alteryx engine.
-            ItemView itemView = new ItemView(recordLimit < 1 ? 1 : (recordLimit == long.MaxValue ? int.MaxValue : (int)recordLimit));
-            
-            // Query items via EWS.
-            var results = service.FindItems(Folder, QueryString, itemView);
+            //ItemView itemView = new ItemView(recordLimit < 1 ? 1 : (recordLimit == long.MaxValue ? int.MaxValue : (int)recordLimit));
+            ItemView itemView = new ItemView(1000);
+            FindItemsResults<Item> results = null;
 
-            foreach (var item in results.Items)
+            do
             {
-                // Bind an email message and pull the specified set of properties.
-                Item message = Item.Bind(service, item.Id, Fields);
+                // Query items via EWS.
+                results = service.FindItems(Folder, QueryString, itemView);
 
-                var attachments = string.Empty;
-
-                // Extract attachments from each message item if found.
-                if (!String.IsNullOrEmpty(AttachmentPath))
+                foreach (var item in results.Items)
                 {
-                    GetAttachmentsFromEmail(message);
+                    // Bind an email message and pull the specified set of properties.
+                    Item message = Item.Bind(service, item.Id, Fields);
+
+                    var attachments = string.Empty;
+
+                    // Extract attachments from each message item if found.
+                    if (!String.IsNullOrEmpty(AttachmentPath))
+                    {
+                        GetAttachmentsFromEmail(message);
+                    }
+
+                    messages.Add(message);
                 }
 
-                messages.Add(message);
+                itemView.Offset += results.Items.Count;
             }
+            while (results.MoreAvailable);
 
             return messages;
         }
