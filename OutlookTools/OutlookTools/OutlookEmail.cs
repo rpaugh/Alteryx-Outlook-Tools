@@ -36,7 +36,6 @@ namespace OutlookTools
             service.AutodiscoverUrl(UserName, RedirectionCallback);
 
             // Create the item view limit based on the number of records requested from the Alteryx engine.
-            //ItemView itemView = new ItemView(recordLimit < 1 ? 1 : (recordLimit == long.MaxValue ? int.MaxValue : (int)recordLimit));
             ItemView itemView = new ItemView(1000);
             FindItemsResults<Item> results = null;
 
