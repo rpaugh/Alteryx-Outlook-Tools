@@ -63,6 +63,18 @@ namespace OutlookTools
                 // Update the XmlFile and ElementName textboxes.
                 txtUserName.Text = xmlConfig.UserName;
                 txtPassword.Text = xmlConfig.Password;
+                chkUseManualServiceURL.Checked = xmlConfig.UseManualServiceURL;
+
+                if (xmlConfig.UseManualServiceURL)
+                {
+                    txtServiceURL.Enabled = true;
+                }
+                else
+                {
+                    txtServiceURL.Enabled = false;
+                }
+
+                txtServiceURL.Text = xmlConfig.ServiceURL;
                 cboFolderToSearch.SelectedValue = xmlConfig.Folder;
                 txtAttachmentPath.Text = xmlConfig.AttachmentPath;
                 txtQueryString.Text = xmlConfig.QueryString;
@@ -117,6 +129,12 @@ namespace OutlookTools
             
             XmlElement password = XmlHelpers.GetOrCreateChildNode(eConfig, "Password");
             password.InnerText = txtPassword.Text;
+
+            XmlElement useManualServiceURL = XmlHelpers.GetOrCreateChildNode(eConfig, "UseManualServiceURL");
+            useManualServiceURL.InnerText = chkUseManualServiceURL.Checked.ToString();
+
+            XmlElement serviceURL = XmlHelpers.GetOrCreateChildNode(eConfig, "ServiceURL");
+            serviceURL.InnerText = txtServiceURL.Text;
 
             XmlElement folder = XmlHelpers.GetOrCreateChildNode(eConfig, "Folder");
             folder.InnerText = cboFolderToSearch.SelectedValue.ToString();
@@ -186,6 +204,18 @@ namespace OutlookTools
                 txtSubFolderName.Enabled = false;
             }
         }
+
+        private void chkUseManualServiceURL_Click(object sender, EventArgs e)
+        {
+            if (chkUseManualServiceURL.Checked)
+            {
+                txtServiceURL.Enabled = true;
+            }
+            else
+            {
+                txtServiceURL.Enabled = false;
+            }
+        }
     }
 
     // The XmlInputConfiguration class is used to parse an XML file to determine what
@@ -194,6 +224,8 @@ namespace OutlookTools
     {
         public string UserName { get; private set; }
         public string Password { get; private set; }
+        public bool UseManualServiceURL { get; private set; }
+        public string ServiceURL { get; private set; }
         public int Folder { get; private set; }
         public string AttachmentPath { get; private set; }
         public string QueryString { get; private set; }
@@ -204,10 +236,12 @@ namespace OutlookTools
 
         // Note that the constructor is private.  Instances are created through the
         // LoadFromConfigration method.
-        XmlInputConfiguration(string userName, string password, int folder, string attachmentPath, string queryString, bool includeSubFolders, string subFolderName)
+        XmlInputConfiguration(string userName, string password, bool useManualServiceURL, string serviceURL, int folder, string attachmentPath, string queryString, bool includeSubFolders, string subFolderName)
         {
             UserName = userName;
             Password = password;
+            UseManualServiceURL = useManualServiceURL;
+            ServiceURL = serviceURL;
             Folder = folder;
             AttachmentPath = attachmentPath;
             QueryString = queryString;
@@ -237,6 +271,10 @@ namespace OutlookTools
             
             XmlElement password = eConfig.SelectSingleNode("Password") as XmlElement;
 
+            XmlElement useManualServiceURL = eConfig.SelectSingleNode("UseManualServiceURL") as XmlElement;
+
+            XmlElement serviceURL = eConfig.SelectSingleNode("ServiceURL") as XmlElement;
+
             XmlElement folder = eConfig.SelectSingleNode("Folder") as XmlElement;
 
             XmlElement attachmentPath = eConfig.SelectSingleNode("AttachmentPath") as XmlElement;
@@ -250,7 +288,7 @@ namespace OutlookTools
             if (userName != null && password != null)
             {
                 // Create the new XmlInputConfiguration object.
-                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerText, password.InnerText, Convert.ToInt16(folder.InnerText), attachmentPath.InnerText, queryString.InnerText, Convert.ToBoolean(includeSubFolders.InnerText), subFolderName.InnerText);
+                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerText, password.InnerText, Convert.ToBoolean(useManualServiceURL.InnerText), serviceURL.InnerText, Convert.ToInt16(folder.InnerText), attachmentPath.InnerText, queryString.InnerText, Convert.ToBoolean(includeSubFolders.InnerText), subFolderName.InnerText);
 
                 // Find all of the Field elements in the configuration.
                 XmlNodeList fields = eConfig.SelectNodes("Fields/Field");

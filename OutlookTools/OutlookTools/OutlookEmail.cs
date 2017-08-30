@@ -17,6 +17,8 @@ namespace OutlookTools
         public int RecordLimit { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public bool UseManualServiceURL { get; set; }
+        public string ServiceURL { get; set; }
         public WellKnownFolderName Folder { get; set; }
         public string AttachmentPath { get; set; }
         public string QueryString { get; set; }
@@ -37,10 +39,17 @@ namespace OutlookTools
             List<Folder> folders = new List<Folder>();
 
             // Set specific credentials.
-            service.Credentials = new NetworkCredential(UserName, Password);
+            service.Credentials = new WebCredentials(UserName, Password);
 
-            // Look up the user's EWS endpoint by using Autodiscover.
-            service.AutodiscoverUrl(UserName, RedirectionCallback);
+            if (UseManualServiceURL)
+            {
+                service.Url = new Uri(ServiceURL);
+            }
+            else
+            {
+                // Look up the user's EWS endpoint by using Autodiscover.
+                service.AutodiscoverUrl(UserName, RedirectionCallback);
+            }
 
             // Get items from the selected root folder.
             GetItemsFromFolder(service, Folder, true);
