@@ -66,6 +66,18 @@ namespace OutlookTools
                 cboFolderToSearch.SelectedValue = xmlConfig.Folder;
                 txtAttachmentPath.Text = xmlConfig.AttachmentPath;
                 txtQueryString.Text = xmlConfig.QueryString;
+                chkIncludeSubFolders.Checked = xmlConfig.IncludeSubFolders;
+
+                if (xmlConfig.IncludeSubFolders)
+                {
+                    txtSubFolderName.Enabled = true;
+                }
+                else
+                {
+                    txtSubFolderName.Enabled = false;
+                }
+
+                txtSubFolderName.Text = xmlConfig.SubFolderName;
 
                 foreach (XmlInputField field in xmlConfig.Fields)
                 {
@@ -115,6 +127,12 @@ namespace OutlookTools
             XmlElement queryString = XmlHelpers.GetOrCreateChildNode(eConfig, "QueryString");
             queryString.InnerText = txtQueryString.Text;
 
+            XmlElement includeSubFolders = XmlHelpers.GetOrCreateChildNode(eConfig, "IncludeSubFolders");
+            includeSubFolders.InnerText = chkIncludeSubFolders.Checked.ToString();
+
+            XmlElement subFolderName = XmlHelpers.GetOrCreateChildNode(eConfig, "SubFolderName");
+            subFolderName.InnerText = txtSubFolderName.Text;
+
             // Create a Fields element to contain the information for each output field.
             XmlElement fieldsElement = XmlHelpers.GetOrCreateChildNode(eConfig, "Fields");
             fieldsElement.RemoveAll();
@@ -156,6 +174,18 @@ namespace OutlookTools
         {
             System.Diagnostics.Process.Start(e.Link.LinkData.ToString());
         }
+
+        private void chkIncludeSubFolders_Click(object sender, EventArgs e)
+        {
+            if (chkIncludeSubFolders.Checked)
+            {
+                txtSubFolderName.Enabled = true;
+            }
+            else
+            {
+                txtSubFolderName.Enabled = false;
+            }
+        }
     }
 
     // The XmlInputConfiguration class is used to parse an XML file to determine what
@@ -168,17 +198,21 @@ namespace OutlookTools
         public string AttachmentPath { get; private set; }
         public string QueryString { get; private set; }
         public int RecordLimit { get; private set; }
+        public bool IncludeSubFolders { get; private set; }
+        public string SubFolderName { get; private set; }
         public List<XmlInputField> Fields { get; private set; }
 
         // Note that the constructor is private.  Instances are created through the
         // LoadFromConfigration method.
-        XmlInputConfiguration(string userName, string password, int folder, string attachmentPath, string queryString)
+        XmlInputConfiguration(string userName, string password, int folder, string attachmentPath, string queryString, bool includeSubFolders, string subFolderName)
         {
             UserName = userName;
             Password = password;
             Folder = folder;
             AttachmentPath = attachmentPath;
             QueryString = queryString;
+            IncludeSubFolders = includeSubFolders;
+            SubFolderName = subFolderName;
             Fields = new List<XmlInputField>();
         }
 
@@ -209,10 +243,14 @@ namespace OutlookTools
 
             XmlElement queryString = eConfig.SelectSingleNode("QueryString") as XmlElement;
 
+            XmlElement includeSubFolders = eConfig.SelectSingleNode("IncludeSubFolders") as XmlElement;
+
+            XmlElement subFolderName = eConfig.SelectSingleNode("SubFolderName") as XmlElement;
+
             if (userName != null && password != null)
             {
                 // Create the new XmlInputConfiguration object.
-                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerText, password.InnerText, Convert.ToInt16(folder.InnerText), attachmentPath.InnerText, queryString.InnerText);
+                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerText, password.InnerText, Convert.ToInt16(folder.InnerText), attachmentPath.InnerText, queryString.InnerText, Convert.ToBoolean(includeSubFolders.InnerText), subFolderName.InnerText);
 
                 // Find all of the Field elements in the configuration.
                 XmlNodeList fields = eConfig.SelectNodes("Fields/Field");

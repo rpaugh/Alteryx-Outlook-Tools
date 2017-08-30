@@ -6,17 +6,22 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Exchange.WebServices.Data;
+using Microsoft.Exchange.WebServices.Autodiscover;
 
 namespace OutlookTools
 {
     public partial class OutlookEmail
     {
+        private List<Item> _messages;
+
         public int RecordLimit { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public WellKnownFolderName Folder { get; set; }
         public string AttachmentPath { get; set; }
         public string QueryString { get; set; }
+        public bool IncludeSubFolders { get; set; }
+        public string SubFolderName { get; set; }
         public PropertySet Fields { get; set; }
 
         static bool RedirectionCallback(string url)
@@ -26,8 +31,10 @@ namespace OutlookTools
 
         public List<Item> GetMessages(long recordLimit)
         {
+            _messages = new List<Item>();
+
             ExchangeService service = new ExchangeService();
-            List<Item> messages = new List<Item>();
+            List<Folder> folders = new List<Folder>();
 
             // Set specific credentials.
             service.Credentials = new NetworkCredential(UserName, Password);
@@ -35,14 +42,57 @@ namespace OutlookTools
             // Look up the user's EWS endpoint by using Autodiscover.
             service.AutodiscoverUrl(UserName, RedirectionCallback);
 
+            // Get items from the selected root folder.
+            GetItemsFromFolder(service, Folder, true);
+
+            // Search sub-folders if desired.
+            if (IncludeSubFolders)
+            {
+                FolderView folderView = new FolderView(1000) { PropertySet = new PropertySet(BasePropertySet.IdOnly), Traversal = FolderTraversal.Deep };
+
+                FindFoldersResults folderResults = null;
+
+                do
+                {
+                    // Search for only a specific sub-folder if supplied, otherwise search all sub-folders for the selected root folder.
+                    if (!String.IsNullOrWhiteSpace(SubFolderName))
+                    {
+                        folderResults = service.FindFolders(Folder, new SearchFilter.ContainsSubstring(FolderSchema.DisplayName, SubFolderName), folderView);
+                    }
+                    else
+                    {
+                        folderResults = service.FindFolders(Folder, folderView);
+                    }
+
+                    foreach (var folder in folderResults)
+                    {
+                        folders.Add(folder);
+                    }
+
+                    folderView.Offset += folderResults.Folders.Count;
+                }
+                while (folderResults.MoreAvailable);
+
+
+                foreach (var folder in folders)
+                {
+                    GetItemsFromFolder(service, folder, false);
+                }
+            }
+
+            return _messages;
+        }
+
+        public void GetItemsFromFolder(ExchangeService service, object folder, bool isRoot)
+        {
             // Create the item view limit based on the number of records requested from the Alteryx engine.
-            ItemView itemView = new ItemView(1000);
+            ItemView itemView = new ItemView(1000) { Traversal = ItemTraversal.Shallow };
             FindItemsResults<Item> results = null;
 
             do
             {
                 // Query items via EWS.
-                results = service.FindItems(Folder, QueryString, itemView);
+                results = service.FindItems(isRoot ? (WellKnownFolderName)folder : ((Folder)folder).Id, QueryString, itemView);
 
                 foreach (var item in results.Items)
                 {
@@ -57,14 +107,12 @@ namespace OutlookTools
                         GetAttachmentsFromEmail(message);
                     }
 
-                    messages.Add(message);
+                    _messages.Add(message);
                 }
 
                 itemView.Offset += results.Items.Count;
             }
             while (results.MoreAvailable);
-
-            return messages;
         }
 
         public void GetAttachmentsFromEmail(Item message)
