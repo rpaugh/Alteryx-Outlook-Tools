@@ -24,6 +24,8 @@ namespace OutlookTools
         public string QueryString { get; set; }
         public bool IncludeSubFolders { get; set; }
         public string SubFolderName { get; set; }
+        public bool SkipRootFolder { get; set; }
+        public bool UseUniqueFileName { get; set; }
         public PropertySet Fields { get; set; }
 
         static bool RedirectionCallback(string url)
@@ -51,8 +53,11 @@ namespace OutlookTools
                 service.AutodiscoverUrl(UserName, RedirectionCallback);
             }
 
-            // Get items from the selected root folder.
-            GetItemsFromFolder(service, Folder, true);
+            if (!SkipRootFolder)
+            {
+                // Get items from the selected root folder.
+                GetItemsFromFolder(service, Folder, true);
+            }
 
             // Search sub-folders if desired.
             if (IncludeSubFolders)
@@ -134,9 +139,10 @@ namespace OutlookTools
                     FileAttachment fileAttachment = (FileAttachment)attachment;
 
                     MemoryStream ms = new MemoryStream();
-                    
-                    // Save the extracted attachment to the loation specified in the tool's configuration UI.
-                    string file = String.Format("{0}\\{1}", AttachmentPath, fileAttachment.Name);
+
+                    // Save the extracted attachment to the location specified in the tool's configuration UI.
+                    string attachmentName = UseUniqueFileName ? String.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(fileAttachment.Name), DateTime.Now.ToFileTime().ToString(), Path.GetExtension(fileAttachment.Name)) : fileAttachment.Name;
+                    string file = String.Format("{0}\\{1}", AttachmentPath, attachmentName);
                     FileStream fs = new FileStream(file, FileMode.Create);
 
                     fileAttachment.Load(fs);

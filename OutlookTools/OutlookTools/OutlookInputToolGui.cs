@@ -90,6 +90,8 @@ namespace OutlookTools
                 }
 
                 txtSubFolderName.Text = xmlConfig.SubFolderName;
+                chkSkipRootFolder.Checked = xmlConfig.SkipRootFolder;
+                chkUseUniqueFileName.Checked = xmlConfig.UseUniqueFileName;
 
                 foreach (XmlInputField field in xmlConfig.Fields)
                 {
@@ -150,6 +152,12 @@ namespace OutlookTools
 
             XmlElement subFolderName = XmlHelpers.GetOrCreateChildNode(eConfig, "SubFolderName");
             subFolderName.InnerText = txtSubFolderName.Text;
+
+            XmlElement skipRootFolder = XmlHelpers.GetOrCreateChildNode(eConfig, "SkipRootFolder");
+            skipRootFolder.InnerText = chkSkipRootFolder.Checked.ToString();
+
+            XmlElement useUniqueFileName = XmlHelpers.GetOrCreateChildNode(eConfig, "UseUniqueFileName");
+            useUniqueFileName.InnerText = chkUseUniqueFileName.Checked.ToString();
 
             // Create a Fields element to contain the information for each output field.
             XmlElement fieldsElement = XmlHelpers.GetOrCreateChildNode(eConfig, "Fields");
@@ -232,11 +240,13 @@ namespace OutlookTools
         public int RecordLimit { get; private set; }
         public bool IncludeSubFolders { get; private set; }
         public string SubFolderName { get; private set; }
+        public bool SkipRootFolder { get; private set; }
+        public bool UseUniqueFileName { get; private set; }
         public List<XmlInputField> Fields { get; private set; }
 
         // Note that the constructor is private.  Instances are created through the
         // LoadFromConfigration method.
-        XmlInputConfiguration(string userName, string password, bool useManualServiceURL, string serviceURL, int folder, string attachmentPath, string queryString, bool includeSubFolders, string subFolderName)
+        XmlInputConfiguration(string userName, string password, bool useManualServiceURL, string serviceURL, int folder, string attachmentPath, string queryString, bool includeSubFolders, string subFolderName, bool skipRootFolder, bool useUniqueFileName)
         {
             UserName = userName;
             Password = password;
@@ -247,6 +257,8 @@ namespace OutlookTools
             QueryString = queryString;
             IncludeSubFolders = includeSubFolders;
             SubFolderName = subFolderName;
+            SkipRootFolder = skipRootFolder;
+            UseUniqueFileName = useUniqueFileName;
             Fields = new List<XmlInputField>();
         }
 
@@ -285,10 +297,14 @@ namespace OutlookTools
 
             XmlElement subFolderName = eConfig.SelectSingleNode("SubFolderName") as XmlElement;
 
+            XmlElement skipRootFolder = eConfig.SelectSingleNode("SkipRootFolder") as XmlElement;
+
+            XmlElement useUniqueFileName = eConfig.SelectSingleNode("UseUniqueFileName") as XmlElement;
+
             if (userName != null && password != null)
             {
                 // Create the new XmlInputConfiguration object.
-                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerText, password.InnerText, Convert.ToBoolean(useManualServiceURL.InnerText), serviceURL.InnerText, Convert.ToInt16(folder.InnerText), attachmentPath.InnerText, queryString.InnerText, Convert.ToBoolean(includeSubFolders.InnerText), subFolderName.InnerText);
+                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerText, password.InnerText, Convert.ToBoolean(useManualServiceURL.InnerText), serviceURL.InnerText, Convert.ToInt16(folder.InnerText), attachmentPath.InnerText, queryString.InnerText, Convert.ToBoolean(includeSubFolders.InnerText), subFolderName.InnerText, Convert.ToBoolean(skipRootFolder.InnerText), Convert.ToBoolean(useUniqueFileName.InnerText));
 
                 // Find all of the Field elements in the configuration.
                 XmlNodeList fields = eConfig.SelectNodes("Fields/Field");
