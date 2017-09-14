@@ -26,6 +26,7 @@ namespace OutlookTools
         public string SubFolderName { get; set; }
         public bool SkipRootFolder { get; set; }
         public bool UseUniqueFileName { get; set; }
+        public List<ItemAttachment> Attachments { get; set; }
         public PropertySet Fields { get; set; }
 
         static bool RedirectionCallback(string url)
@@ -36,6 +37,7 @@ namespace OutlookTools
         public List<Item> GetMessages(long recordLimit)
         {
             _messages = new List<Item>();
+            Attachments = new List<ItemAttachment>();
 
             ExchangeService service = new ExchangeService();
             List<Folder> folders = new List<Folder>();
@@ -148,8 +150,16 @@ namespace OutlookTools
                     fileAttachment.Load(fs);
 
                     fs.Close();
+
+                    Attachments.Add(new ItemAttachment() { Id = message.Id, AttachmentPath = file });
                 }
             }
         }
+    }
+
+    public class ItemAttachment
+    {
+        public ItemId Id { get; set; }
+        public String AttachmentPath { get; set; }
     }
 }

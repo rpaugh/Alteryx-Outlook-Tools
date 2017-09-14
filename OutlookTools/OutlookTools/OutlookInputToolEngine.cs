@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Xml;
 using Microsoft.Exchange.WebServices.Data;
 using System.Reflection;
@@ -199,11 +200,11 @@ namespace OutlookTools
                     // Return message attachments if applicable.
                     if (!string.IsNullOrWhiteSpace(xmlConfig.AttachmentPath))
                     {
-                        foreach (var attachment in message.Attachments)
+                        foreach (var attachment in email.Attachments.Where(x => x.Id == message.Id)/*message.Attachments*/)
                         {
-                            if (attachment is FileAttachment)
-                            {
-                                FileAttachment fileAttachment = (FileAttachment)attachment;
+                            //if (attachment is FileAttachment)
+                            //{
+                            //    FileAttachment fileAttachment = (FileAttachment)attachment;
 
                                 // Reset our output record so we can reuse it.  This is better than
                                 // creating a new Record in each iteration as these objects can get large.
@@ -215,11 +216,11 @@ namespace OutlookTools
 
                                 // Get the FieldBase from the RecordInfo for the AttachmentPath field.
                                 AlteryxRecordInfoNet.FieldBase fieldBase_AttachmentPath = recordInfoOut_AttachmentPaths.GetFieldByName("AttachmentPath", false);
-                                if (fieldBase_AttachmentPath != null) { fieldBase_AttachmentPath.SetFromString(recordOut_AttachmentPaths, String.Format("{0}\\{1}", xmlConfig.AttachmentPath, fileAttachment.Name)); }
+                                if (fieldBase_AttachmentPath != null) { fieldBase_AttachmentPath.SetFromString(recordOut_AttachmentPaths, attachment.AttachmentPath/*String.Format("{0}\\{1}", xmlConfig.AttachmentPath, fileAttachment.Name)*/); }
 
                                 // Send the record to the downstream tools through the PluginOutputConnectionHelper.
                                 m_attachmentOutputHelper.PushRecord(recordOut_AttachmentPaths.GetRecord());
-                            }
+                            //}
                         }
                     }
 
