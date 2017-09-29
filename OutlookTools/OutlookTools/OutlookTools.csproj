@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions.cs" />
     <Compile Include="ListHelper.cs" />
     <Compile Include="OutlookEmail.cs" />
     <Compile Include="OutlookInputTool.cs" />

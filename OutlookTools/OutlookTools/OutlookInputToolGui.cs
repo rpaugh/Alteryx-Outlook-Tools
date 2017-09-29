@@ -279,32 +279,32 @@ namespace OutlookTools
         public static XmlInputConfiguration LoadFromConfiguration(XmlElement eConfig)
         {
             // Get the configuration values from the XML config elements to be place in their corresponding fields in the UI.
-            XmlElement userName = eConfig.SelectSingleNode("UserName") as XmlElement;
+            XmlElement userName = (XmlElement)eConfig.SelectSingleNode("UserName");
             
-            XmlElement password = eConfig.SelectSingleNode("Password") as XmlElement;
+            XmlElement password = (XmlElement)eConfig.SelectSingleNode("Password");
 
-            XmlElement useManualServiceURL = eConfig.SelectSingleNode("UseManualServiceURL") as XmlElement;
+            XmlElement useManualServiceURL = (XmlElement)eConfig.SelectSingleNode("UseManualServiceURL");
 
-            XmlElement serviceURL = eConfig.SelectSingleNode("ServiceURL") as XmlElement;
+            XmlElement serviceURL = (XmlElement)eConfig.SelectSingleNode("ServiceURL");
 
-            XmlElement folder = eConfig.SelectSingleNode("Folder") as XmlElement;
+            XmlElement folder = (XmlElement)eConfig.SelectSingleNode("Folder");
 
-            XmlElement attachmentPath = eConfig.SelectSingleNode("AttachmentPath") as XmlElement;
+            XmlElement attachmentPath = (XmlElement)eConfig.SelectSingleNode("AttachmentPath");
 
-            XmlElement queryString = eConfig.SelectSingleNode("QueryString") as XmlElement;
+            XmlElement queryString = (XmlElement)eConfig.SelectSingleNode("QueryString");
 
-            XmlElement includeSubFolders = eConfig.SelectSingleNode("IncludeSubFolders") as XmlElement;
+            XmlElement includeSubFolders = (XmlElement)eConfig.SelectSingleNode("IncludeSubFolders");
 
-            XmlElement subFolderName = eConfig.SelectSingleNode("SubFolderName") as XmlElement;
+            XmlElement subFolderName = (XmlElement)eConfig.SelectSingleNode("SubFolderName");
 
-            XmlElement skipRootFolder = eConfig.SelectSingleNode("SkipRootFolder") as XmlElement;
+            XmlElement skipRootFolder = (XmlElement)eConfig.SelectSingleNode("SkipRootFolder");
 
-            XmlElement useUniqueFileName = eConfig.SelectSingleNode("UseUniqueFileName") as XmlElement;
+            XmlElement useUniqueFileName = (XmlElement)eConfig.SelectSingleNode("UseUniqueFileName");
 
             if (userName != null && password != null)
             {
                 // Create the new XmlInputConfiguration object.
-                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerText, password.InnerText, Convert.ToBoolean(useManualServiceURL.InnerText), serviceURL.InnerText, Convert.ToInt16(folder.InnerText), attachmentPath.InnerText, queryString.InnerText, Convert.ToBoolean(includeSubFolders.InnerText), subFolderName.InnerText, Convert.ToBoolean(skipRootFolder.InnerText), Convert.ToBoolean(useUniqueFileName.InnerText));
+                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerString(), password.InnerString(), useManualServiceURL.InnerBoolean(), serviceURL.InnerString(), folder.InnerInt(), attachmentPath.InnerString(), queryString.InnerString(), includeSubFolders.InnerBoolean(), subFolderName.InnerString(), skipRootFolder.InnerBoolean(), useUniqueFileName.InnerBoolean());
 
                 // Find all of the Field elements in the configuration.
                 XmlNodeList fields = eConfig.SelectNodes("Fields/Field");
