@@ -12,7 +12,7 @@ namespace OutlookTools
 {
     public partial class OutlookEmail
     {
-        private List<Item> _messages;
+        private List<OItem> _oItems;
 
         public int RecordLimit { get; set; }
         public string UserName { get; set; }
@@ -26,7 +26,6 @@ namespace OutlookTools
         public string SubFolderName { get; set; }
         public bool SkipRootFolder { get; set; }
         public bool UseUniqueFileName { get; set; }
-        public List<ItemAttachment> Attachments { get; set; }
         public PropertySet Fields { get; set; }
 
         static bool RedirectionCallback(string url)
@@ -34,10 +33,9 @@ namespace OutlookTools
             return url.ToLower().StartsWith("https://");
         }
 
-        public List<Item> GetMessages(long recordLimit)
+        public List<OItem> GetItems(long recordLimit)
         {
-            _messages = new List<Item>();
-            Attachments = new List<ItemAttachment>();
+            _oItems = new List<OItem>();
 
             ExchangeService service = new ExchangeService();
             List<Folder> folders = new List<Folder>();
@@ -96,12 +94,11 @@ namespace OutlookTools
                 }
             }
 
-            return _messages;
+            return _oItems;
         }
 
         public void GetItemsFromFolder(ExchangeService service, object folder, bool isRoot)
         {
-            // Create the item view limit based on the number of records requested from the Alteryx engine.
             ItemView itemView = new ItemView(1000) { Traversal = ItemTraversal.Shallow };
             FindItemsResults<Item> results = null;
 
@@ -113,17 +110,17 @@ namespace OutlookTools
                 foreach (var item in results.Items)
                 {
                     // Bind an email message and pull the specified set of properties.
-                    Item message = Item.Bind(service, item.Id, Fields);
+                    OItem oItem = new OItem() { Item = Item.Bind(service, item.Id, Fields), Attachments = new List<ItemAttachment>() };
 
                     var attachments = string.Empty;
 
                     // Extract attachments from each message item if found.
                     if (!String.IsNullOrEmpty(AttachmentPath))
                     {
-                        GetAttachmentsFromEmail(message);
+                        oItem.Attachments = GetAttachmentsFromItem(oItem.Item);
                     }
 
-                    _messages.Add(message);
+                    _oItems.Add(oItem);
                 }
 
                 itemView.Offset += results.Items.Count;
@@ -131,10 +128,12 @@ namespace OutlookTools
             while (results.MoreAvailable);
         }
 
-        public void GetAttachmentsFromEmail(Item message)
+        public List<ItemAttachment> GetAttachmentsFromItem(Item item)
         {
+            List<ItemAttachment> attachments = new List<ItemAttachment>();
+
             // Iterate through the attachments collection and load each attachment.
-            foreach (Attachment attachment in message.Attachments)
+            foreach (Attachment attachment in item.Attachments)
             {
                 if (attachment is FileAttachment)
                 {
@@ -151,9 +150,11 @@ namespace OutlookTools
 
                     fs.Close();
 
-                    Attachments.Add(new ItemAttachment() { Id = message.Id, AttachmentPath = file });
+                    attachments.Add(new ItemAttachment() { Id = item.Id, AttachmentPath = file });
                 }
             }
+
+            return attachments;
         }
     }
 
@@ -161,5 +162,11 @@ namespace OutlookTools
     {
         public ItemId Id { get; set; }
         public String AttachmentPath { get; set; }
+    }
+
+    public class OItem
+    {
+        public Item Item { get; set; }
+        public List<ItemAttachment> Attachments { get; set; }
     }
 }

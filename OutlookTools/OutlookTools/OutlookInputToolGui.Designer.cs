@@ -102,6 +102,7 @@
             this.cboFolderToSearch.Name = "cboFolderToSearch";
             this.cboFolderToSearch.Size = new System.Drawing.Size(315, 21);
             this.cboFolderToSearch.TabIndex = 5;
+            this.cboFolderToSearch.SelectedValueChanged += new System.EventHandler(this.cboFolderToSearch_SelectedValueChanged);
             // 
             // clbFields
             // 

@@ -7,6 +7,7 @@ using System.Xml;
 
 namespace OutlookTools
 {
+    // XML extension methods used to handle null values from the tool's configuration file and return the appropriate value type.
     public static class Extensions
     {
         public static bool InnerBoolean(this XmlElement xml)

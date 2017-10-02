@@ -46,7 +46,7 @@ namespace OutlookTools
 
             List<KeyValuePair<string, string>> list = new List<KeyValuePair<string, string>>();
 
-            var members = typeof(T).GetMembers(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
+            var members = typeof(T).GetMembers(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.FlattenHierarchy);
 
             foreach (var member in members)
             {

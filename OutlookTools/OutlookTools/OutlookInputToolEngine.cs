@@ -147,15 +147,22 @@ namespace OutlookTools
 
                 for (int i = 0; i < xmlConfig.Fields.Count; i++)
                 {
-                    propertyDefinitionBase[i] = (PropertyDefinitionBase)typeof(ItemSchema).GetField(xmlConfig.Fields[i].Name).GetValue(null);
+                    if ((WellKnownFolderName)xmlConfig.Folder == WellKnownFolderName.Calendar && typeof(AppointmentSchema).GetField(xmlConfig.Fields[i].Name) != null)
+                    {
+                        propertyDefinitionBase[i] = (PropertyDefinitionBase)typeof(AppointmentSchema).GetField(xmlConfig.Fields[i].Name).GetValue(null);
+                    }
+                    else
+                    {
+                        propertyDefinitionBase[i] = (PropertyDefinitionBase)typeof(ItemSchema).GetField(xmlConfig.Fields[i].Name).GetValue(null);
+                    }
                 }
 
                 // Assign the configuration settings and field list to the OutlookEmail object.
                 OutlookEmail email = new OutlookEmail() { UserName = xmlConfig.UserName, Password = xmlConfig.Password, UseManualServiceURL = xmlConfig.UseManualServiceURL, ServiceURL = xmlConfig.ServiceURL, Folder = (WellKnownFolderName)xmlConfig.Folder, AttachmentPath = xmlConfig.AttachmentPath, QueryString = xmlConfig.QueryString, IncludeSubFolders = xmlConfig.IncludeSubFolders, SubFolderName = xmlConfig.SubFolderName, SkipRootFolder = xmlConfig.SkipRootFolder, UseUniqueFileName = xmlConfig.UseUniqueFileName };
                 email.Fields = new PropertySet(propertyDefinitionBase);
 
-                // Get the list of messages (this includes attachments if the Attachment field was selected for output).
-                List<Item> messages = email.GetMessages(nRecordLimit);
+                // Get the list of items (this includes attachments if the Attachment field was selected for output).
+                List<OItem> oItems = email.GetItems(nRecordLimit);
 
                 // We will need to send status updates to Alteryx at regular intervals during
                 // this process, so we'll do that based on an elapsed time.
@@ -165,7 +172,7 @@ namespace OutlookTools
                 long nRecords = 0;
 
                 // Process the data in each message object.
-                foreach (var message in messages)
+                foreach (var oItem in oItems)
                 {
                     // If we've exceeded the record limit, stop processing.
                     if (nRecords >= nRecordLimit) break;
@@ -182,7 +189,7 @@ namespace OutlookTools
                         if (fieldBase != null)
                         {
                             // Find the element within the container element that has the same name as the field.
-                            var value = Convert.ToString(message.GetType().GetProperty(field.Name).GetValue(message, null));
+                            var value = Convert.ToString(oItem.Item.GetType().GetProperty(field.Name).GetValue(oItem.Item, null));
 
                             if (value == null)
                             {
@@ -200,27 +207,22 @@ namespace OutlookTools
                     // Return message attachments if applicable.
                     if (!string.IsNullOrWhiteSpace(xmlConfig.AttachmentPath))
                     {
-                        foreach (var attachment in email.Attachments.Where(x => x.Id == message.Id)/*message.Attachments*/)
+                        foreach (var attachment in oItem.Attachments)
                         {
-                            //if (attachment is FileAttachment)
-                            //{
-                            //    FileAttachment fileAttachment = (FileAttachment)attachment;
+                            // Reset our output record so we can reuse it.  This is better than
+                            // creating a new Record in each iteration as these objects can get large.
+                            recordOut_AttachmentPaths.Reset();
 
-                                // Reset our output record so we can reuse it.  This is better than
-                                // creating a new Record in each iteration as these objects can get large.
-                                recordOut_AttachmentPaths.Reset();
+                            // Get the FieldBase from the RecordInfo for the ID field.
+                            AlteryxRecordInfoNet.FieldBase fieldBase_ID = recordInfoOut_AttachmentPaths.GetFieldByName("ID", false);
+                            if (fieldBase_ID != null) { fieldBase_ID.SetFromString(recordOut_AttachmentPaths, oItem.Item.Id.ToString()); }
 
-                                // Get the FieldBase from the RecordInfo for the ID field.
-                                AlteryxRecordInfoNet.FieldBase fieldBase_ID = recordInfoOut_AttachmentPaths.GetFieldByName("ID", false);
-                                if (fieldBase_ID != null) { fieldBase_ID.SetFromString(recordOut_AttachmentPaths, message.Id.ToString()); }
+                            // Get the FieldBase from the RecordInfo for the AttachmentPath field.
+                            AlteryxRecordInfoNet.FieldBase fieldBase_AttachmentPath = recordInfoOut_AttachmentPaths.GetFieldByName("AttachmentPath", false);
+                            if (fieldBase_AttachmentPath != null) { fieldBase_AttachmentPath.SetFromString(recordOut_AttachmentPaths, attachment.AttachmentPath); }
 
-                                // Get the FieldBase from the RecordInfo for the AttachmentPath field.
-                                AlteryxRecordInfoNet.FieldBase fieldBase_AttachmentPath = recordInfoOut_AttachmentPaths.GetFieldByName("AttachmentPath", false);
-                                if (fieldBase_AttachmentPath != null) { fieldBase_AttachmentPath.SetFromString(recordOut_AttachmentPaths, attachment.AttachmentPath/*String.Format("{0}\\{1}", xmlConfig.AttachmentPath, fileAttachment.Name)*/); }
-
-                                // Send the record to the downstream tools through the PluginOutputConnectionHelper.
-                                m_attachmentOutputHelper.PushRecord(recordOut_AttachmentPaths.GetRecord());
-                            //}
+                            // Send the record to the downstream tools through the PluginOutputConnectionHelper.
+                            m_attachmentOutputHelper.PushRecord(recordOut_AttachmentPaths.GetRecord());
                         }
                     }
 
@@ -231,7 +233,7 @@ namespace OutlookTools
                     if (DateTime.Now.Subtract(last).TotalSeconds >= 1)
                     {
                         // Determine the percent complete:  (Records Processed) / Min(RecordLimit, # of Container Elements)
-                        double percentComplete = (double)nRecords / Math.Min(nRecordLimit, messages.Count);
+                        double percentComplete = (double)nRecords / Math.Min(nRecordLimit, oItems.Count);
 
                         // Output the progress
                         if (m_engineInterface.OutputToolProgress(m_nToolId, percentComplete) != 0)

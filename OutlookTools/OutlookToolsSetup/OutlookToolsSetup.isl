@@ -4365,9 +4365,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{D7C583F8-BCAB-4EF4-9094-08D5AB6988CA}</td><td/></row>
+		<row><td>ProductCode</td><td>{48A9D157-65EE-4117-95B2-F2B7843B26E0}</td><td/></row>
 		<row><td>ProductName</td><td>Alteryx Outlook Tools</td><td/></row>
-		<row><td>ProductVersion</td><td>1.0.4</td><td/></row>
+		<row><td>ProductVersion</td><td>2.0.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>

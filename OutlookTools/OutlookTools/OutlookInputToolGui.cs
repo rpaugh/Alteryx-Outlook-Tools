@@ -28,10 +28,6 @@ namespace OutlookTools
             cboFolderToSearch.DisplayMember = "Value";
             cboFolderToSearch.ValueMember = "Key";
             cboFolderToSearch.SelectedValue = folderList.Where(x => x.Value == "Inbox").First().Key;
-
-            clbFields.DataSource = new BindingSource(Member<ItemSchema>.ToList(), null);
-            clbFields.DisplayMember = "Value";
-            clbFields.ValueMember = "Key";
             
             lblQueryStringHelpLink.Links[0].LinkData = "https://msdn.microsoft.com/en-us/library/ee693615(exchg.140).aspx";
         }
@@ -83,10 +79,12 @@ namespace OutlookTools
                 if (xmlConfig.IncludeSubFolders)
                 {
                     txtSubFolderName.Enabled = true;
+                    chkSkipRootFolder.Enabled = true;
                 }
                 else
                 {
                     txtSubFolderName.Enabled = false;
+                    chkSkipRootFolder.Enabled = false;
                 }
 
                 txtSubFolderName.Text = xmlConfig.SubFolderName;
@@ -206,10 +204,12 @@ namespace OutlookTools
             if (chkIncludeSubFolders.Checked)
             {
                 txtSubFolderName.Enabled = true;
+                chkSkipRootFolder.Enabled = true;
             }
             else
             {
                 txtSubFolderName.Enabled = false;
+                chkSkipRootFolder.Enabled = false;
             }
         }
 
@@ -223,6 +223,32 @@ namespace OutlookTools
             {
                 txtServiceURL.Enabled = false;
             }
+        }
+
+        private void cboFolderToSearch_SelectedValueChanged(object sender, EventArgs e)
+        {
+            List<KeyValuePair<string, string>> fields;
+
+            switch (cboFolderToSearch.SelectedValue.ToString())
+            {
+                // Pull in calendar-specific members if selected, otherwise use generic Item schema.
+                // Note: Appointment Schema selection will add the calendar members to the list of generic Item members and return both.
+                case "0":
+                    fields = Member<AppointmentSchema>.ToList();
+                    fields.Sort((x, y) => x.Value.CompareTo(y.Value));
+
+                    clbFields.DataSource = new BindingSource(fields, null);
+                    break;
+                default:
+                    fields = Member<ItemSchema>.ToList();
+                    fields.Sort((x, y) => x.Value.CompareTo(y.Value));
+
+                    clbFields.DataSource = new BindingSource(fields, null);
+                    break;
+            }
+
+            clbFields.DisplayMember = "Value";
+            clbFields.ValueMember = "Key";
         }
     }
 
