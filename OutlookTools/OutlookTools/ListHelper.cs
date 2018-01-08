@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Exchange.WebServices.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,6 +52,36 @@ namespace OutlookTools
             foreach (var member in members)
             {
                 list.Add(new KeyValuePair<string, string>(member.Name, member.Name));
+            }
+
+            return list;
+        }
+        public static List<KeyValuePair<string, string>> ToList(ExchangeVersion exchangeVersion)
+        {
+            if (!typeof(T).IsClass)
+                throw new ArgumentException("T must be a class type");
+
+            List<KeyValuePair<string, string>> list = new List<KeyValuePair<string, string>>();
+
+            var members = typeof(T).GetMembers(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.FlattenHierarchy);
+
+            foreach (var member in members)
+            {
+                // Exclude fields that cause errors with value retrieval via reflection of the PropertyDefinitionBase
+                if (member.Name != "EntityExtractionResult" && member.Name != "Equals" && member.Name != "ExtendedProperties" && member.Name != "IconIndex" && member.Name != "InternetMessageHeaders" && member.Name != "IsReminderSet" && member.Name != "ReferenceEquals" && member.Name != "ReminderDueBy" && member.Name != "ReminderMinutesBeforeStart")
+                {
+                    if (exchangeVersion >= ExchangeVersion.Exchange2013)
+                    {
+                        list.Add(new KeyValuePair<string, string>(member.Name, member.Name));
+                    }
+                    else
+                    {
+                        if (member.Name != "ArchiveTag" && member.Name != "Flag" && member.Name != "IconIndex" && member.Name != "InstanceKey" && member.Name != "NormalizedBody" && member.Name != "PolicyTag" && member.Name != "Preview" && member.Name != "RetentionDate" && member.Name != "TextBody")
+                        {
+                            list.Add(new KeyValuePair<string, string>(member.Name, member.Name));
+                        }
+                    }
+                }
             }
 
             return list;

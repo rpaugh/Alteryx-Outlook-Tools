@@ -22,12 +22,21 @@ namespace OutlookTools
         {
             InitializeComponent();
 
+            List<KeyValuePair<int, string>> exchangeList = Enum<ExchangeVersion>.ToList().OrderByDescending(x => x.Key).ToList();
+
+            cboExchangeVersion.DataSource = exchangeList;
+            cboExchangeVersion.DisplayMember = "Value";
+            cboExchangeVersion.ValueMember = "Key";
+            cboExchangeVersion.SelectedValue = exchangeList.First().Key;
+
             List<KeyValuePair<int, string>> folderList = Enum<WellKnownFolderName>.ToList();
 
             cboFolderToSearch.DataSource = folderList;
             cboFolderToSearch.DisplayMember = "Value";
             cboFolderToSearch.ValueMember = "Key";
             cboFolderToSearch.SelectedValue = folderList.Where(x => x.Value == "Inbox").First().Key;
+
+            cboExchangeVersion.SelectedValueChanged += new System.EventHandler(cboExchangeVersion_SelectedValueChanged);
             
             lblQueryStringHelpLink.Links[0].LinkData = "https://msdn.microsoft.com/en-us/library/ee693615(exchg.140).aspx";
         }
@@ -70,6 +79,7 @@ namespace OutlookTools
                     txtServiceURL.Enabled = false;
                 }
 
+                cboExchangeVersion.SelectedValue = xmlConfig.ExchangeVersion;
                 txtServiceURL.Text = xmlConfig.ServiceURL;
                 cboFolderToSearch.SelectedValue = xmlConfig.Folder;
                 txtAttachmentPath.Text = xmlConfig.AttachmentPath;
@@ -129,6 +139,9 @@ namespace OutlookTools
             
             XmlElement password = XmlHelpers.GetOrCreateChildNode(eConfig, "Password");
             password.InnerText = txtPassword.Text;
+
+            XmlElement exchangeVersion = XmlHelpers.GetOrCreateChildNode(eConfig, "ExchangeVersion");
+            exchangeVersion.InnerText = cboExchangeVersion.SelectedValue.ToString();
 
             XmlElement useManualServiceURL = XmlHelpers.GetOrCreateChildNode(eConfig, "UseManualServiceURL");
             useManualServiceURL.InnerText = chkUseManualServiceURL.Checked.ToString();
@@ -225,7 +238,17 @@ namespace OutlookTools
             }
         }
 
+        private void cboExchangeVersion_SelectedValueChanged(object sender, EventArgs e)
+        {
+            RefreshItemList();
+        }
+
         private void cboFolderToSearch_SelectedValueChanged(object sender, EventArgs e)
+        {
+            RefreshItemList();
+        }
+
+        private void RefreshItemList()
         {
             List<KeyValuePair<string, string>> fields;
 
@@ -234,13 +257,13 @@ namespace OutlookTools
                 // Pull in calendar-specific members if selected, otherwise use generic Item schema.
                 // Note: Appointment Schema selection will add the calendar members to the list of generic Item members and return both.
                 case "0":
-                    fields = Member<AppointmentSchema>.ToList();
+                    fields = Member<AppointmentSchema>.ToList((ExchangeVersion)cboExchangeVersion.SelectedValue);
                     fields.Sort((x, y) => x.Value.CompareTo(y.Value));
 
                     clbFields.DataSource = new BindingSource(fields, null);
                     break;
                 default:
-                    fields = Member<ItemSchema>.ToList();
+                    fields = Member<ItemSchema>.ToList((ExchangeVersion)cboExchangeVersion.SelectedValue);
                     fields.Sort((x, y) => x.Value.CompareTo(y.Value));
 
                     clbFields.DataSource = new BindingSource(fields, null);
@@ -250,6 +273,24 @@ namespace OutlookTools
             clbFields.DisplayMember = "Value";
             clbFields.ValueMember = "Key";
         }
+
+        private void lblAllChecked_Click(object sender, EventArgs e)
+        {
+            SetFieldCheckedState(true);
+        }
+
+        private void lblClearChecked_Click(object sender, EventArgs e)
+        {
+            SetFieldCheckedState(false);
+        }
+
+        private void SetFieldCheckedState(bool state)
+        {
+            for (int i = 0; i < clbFields.Items.Count; i++)
+            {
+                clbFields.SetItemChecked(i, state);
+            }
+        }
     }
 
     // The XmlInputConfiguration class is used to parse an XML file to determine what
@@ -258,6 +299,7 @@ namespace OutlookTools
     {
         public string UserName { get; private set; }
         public string Password { get; private set; }
+        public int ExchangeVersion { get; private set; }
         public bool UseManualServiceURL { get; private set; }
         public string ServiceURL { get; private set; }
         public int Folder { get; private set; }
@@ -272,10 +314,11 @@ namespace OutlookTools
 
         // Note that the constructor is private.  Instances are created through the
         // LoadFromConfigration method.
-        XmlInputConfiguration(string userName, string password, bool useManualServiceURL, string serviceURL, int folder, string attachmentPath, string queryString, bool includeSubFolders, string subFolderName, bool skipRootFolder, bool useUniqueFileName)
+        XmlInputConfiguration(string userName, string password, int exchangeVersion, bool useManualServiceURL, string serviceURL, int folder, string attachmentPath, string queryString, bool includeSubFolders, string subFolderName, bool skipRootFolder, bool useUniqueFileName)
         {
             UserName = userName;
             Password = password;
+            ExchangeVersion = exchangeVersion;
             UseManualServiceURL = useManualServiceURL;
             ServiceURL = serviceURL;
             Folder = folder;
@@ -309,6 +352,8 @@ namespace OutlookTools
             
             XmlElement password = (XmlElement)eConfig.SelectSingleNode("Password");
 
+            XmlElement exchangeVersion = (XmlElement)eConfig.SelectSingleNode("ExchangeVersion");
+
             XmlElement useManualServiceURL = (XmlElement)eConfig.SelectSingleNode("UseManualServiceURL");
 
             XmlElement serviceURL = (XmlElement)eConfig.SelectSingleNode("ServiceURL");
@@ -330,7 +375,7 @@ namespace OutlookTools
             if (userName != null && password != null)
             {
                 // Create the new XmlInputConfiguration object.
-                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerString(), password.InnerString(), useManualServiceURL.InnerBoolean(), serviceURL.InnerString(), folder.InnerInt(), attachmentPath.InnerString(), queryString.InnerString(), includeSubFolders.InnerBoolean(), subFolderName.InnerString(), skipRootFolder.InnerBoolean(), useUniqueFileName.InnerBoolean());
+                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerString(), password.InnerString(), exchangeVersion.InnerInt<ExchangeVersion>(), useManualServiceURL.InnerBoolean(), serviceURL.InnerString(), folder.InnerInt<WellKnownFolderName>(), attachmentPath.InnerString(), queryString.InnerString(), includeSubFolders.InnerBoolean(), subFolderName.InnerString(), skipRootFolder.InnerBoolean(), useUniqueFileName.InnerBoolean());
 
                 // Find all of the Field elements in the configuration.
                 XmlNodeList fields = eConfig.SelectNodes("Fields/Field");

@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OutlookTools</RootNamespace>
     <AssemblyName>OutlookTools</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,12 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AlteryxGuiToolkit">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Alteryx\bin\AlteryxGuiToolkit.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\Google Drive\Docs\AlteryxGuiToolkit.dll</HintPath>
     </Reference>
     <Reference Include="AlteryxRecordInfo.Net">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Alteryx\bin\AlteryxRecordInfo.Net.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\Google Drive\Docs\AlteryxRecordInfo.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Exchange.WebServices, Version=15.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Exchange.WebServices.2.2\lib\40\Microsoft.Exchange.WebServices.dll</HintPath>

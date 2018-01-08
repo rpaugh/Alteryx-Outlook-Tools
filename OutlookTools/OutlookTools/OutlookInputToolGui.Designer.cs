@@ -51,6 +51,10 @@
             this.txtServiceURL = new System.Windows.Forms.TextBox();
             this.chkSkipRootFolder = new System.Windows.Forms.CheckBox();
             this.chkUseUniqueFileName = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cboExchangeVersion = new System.Windows.Forms.ComboBox();
+            this.lblAllChecked = new System.Windows.Forms.LinkLabel();
+            this.lblClearChecked = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // label1
@@ -89,7 +93,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 124);
+            this.label3.Location = new System.Drawing.Point(3, 165);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(88, 13);
             this.label3.TabIndex = 4;
@@ -98,7 +102,7 @@
             // cboFolderToSearch
             // 
             this.cboFolderToSearch.FormattingEnabled = true;
-            this.cboFolderToSearch.Location = new System.Drawing.Point(4, 141);
+            this.cboFolderToSearch.Location = new System.Drawing.Point(4, 182);
             this.cboFolderToSearch.Name = "cboFolderToSearch";
             this.cboFolderToSearch.Size = new System.Drawing.Size(315, 21);
             this.cboFolderToSearch.TabIndex = 5;
@@ -108,7 +112,7 @@
             // 
             this.clbFields.CheckOnClick = true;
             this.clbFields.FormattingEnabled = true;
-            this.clbFields.Location = new System.Drawing.Point(4, 254);
+            this.clbFields.Location = new System.Drawing.Point(4, 295);
             this.clbFields.Name = "clbFields";
             this.clbFields.Size = new System.Drawing.Size(314, 259);
             this.clbFields.TabIndex = 6;
@@ -116,7 +120,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 234);
+            this.label4.Location = new System.Drawing.Point(2, 279);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(40, 13);
             this.label4.TabIndex = 7;
@@ -125,7 +129,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 516);
+            this.label5.Location = new System.Drawing.Point(3, 557);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(109, 13);
             this.label5.TabIndex = 8;
@@ -134,14 +138,14 @@
             // lblAttachmentPath
             // 
             this.lblAttachmentPath.AutoSize = true;
-            this.lblAttachmentPath.Location = new System.Drawing.Point(119, 516);
+            this.lblAttachmentPath.Location = new System.Drawing.Point(119, 557);
             this.lblAttachmentPath.Name = "lblAttachmentPath";
             this.lblAttachmentPath.Size = new System.Drawing.Size(0, 13);
             this.lblAttachmentPath.TabIndex = 9;
             // 
             // btnAttachmentPath
             // 
-            this.btnAttachmentPath.Location = new System.Drawing.Point(243, 531);
+            this.btnAttachmentPath.Location = new System.Drawing.Point(243, 572);
             this.btnAttachmentPath.Name = "btnAttachmentPath";
             this.btnAttachmentPath.Size = new System.Drawing.Size(75, 23);
             this.btnAttachmentPath.TabIndex = 10;
@@ -151,23 +155,23 @@
             // 
             // txtAttachmentPath
             // 
-            this.txtAttachmentPath.Location = new System.Drawing.Point(4, 533);
+            this.txtAttachmentPath.Location = new System.Drawing.Point(4, 574);
             this.txtAttachmentPath.Name = "txtAttachmentPath";
             this.txtAttachmentPath.Size = new System.Drawing.Size(233, 20);
             this.txtAttachmentPath.TabIndex = 11;
             // 
             // txtQueryString
             // 
-            this.txtQueryString.Location = new System.Drawing.Point(3, 599);
+            this.txtQueryString.Location = new System.Drawing.Point(4, 640);
             this.txtQueryString.Name = "txtQueryString";
-            this.txtQueryString.Size = new System.Drawing.Size(316, 20);
+            this.txtQueryString.Size = new System.Drawing.Size(315, 20);
             this.txtQueryString.TabIndex = 13;
             // 
             // lblQueryStringHelpLink
             // 
             this.lblQueryStringHelpLink.AutoSize = true;
             this.lblQueryStringHelpLink.LinkArea = new System.Windows.Forms.LinkArea(14, 1);
-            this.lblQueryStringHelpLink.Location = new System.Drawing.Point(6, 579);
+            this.lblQueryStringHelpLink.Location = new System.Drawing.Point(6, 620);
             this.lblQueryStringHelpLink.Name = "lblQueryStringHelpLink";
             this.lblQueryStringHelpLink.Size = new System.Drawing.Size(88, 17);
             this.lblQueryStringHelpLink.TabIndex = 14;
@@ -179,7 +183,7 @@
             // chkIncludeSubFolders
             // 
             this.chkIncludeSubFolders.AutoSize = true;
-            this.chkIncludeSubFolders.Location = new System.Drawing.Point(6, 169);
+            this.chkIncludeSubFolders.Location = new System.Drawing.Point(5, 210);
             this.chkIncludeSubFolders.Name = "chkIncludeSubFolders";
             this.chkIncludeSubFolders.Size = new System.Drawing.Size(120, 17);
             this.chkIncludeSubFolders.TabIndex = 15;
@@ -190,7 +194,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(24, 189);
+            this.label6.Location = new System.Drawing.Point(23, 230);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(92, 13);
             this.label6.TabIndex = 16;
@@ -199,7 +203,7 @@
             // txtSubFolderName
             // 
             this.txtSubFolderName.Enabled = false;
-            this.txtSubFolderName.Location = new System.Drawing.Point(122, 186);
+            this.txtSubFolderName.Location = new System.Drawing.Point(121, 227);
             this.txtSubFolderName.Name = "txtSubFolderName";
             this.txtSubFolderName.Size = new System.Drawing.Size(196, 20);
             this.txtSubFolderName.TabIndex = 17;
@@ -207,7 +211,7 @@
             // chkUseManualServiceURL
             // 
             this.chkUseManualServiceURL.AutoSize = true;
-            this.chkUseManualServiceURL.Location = new System.Drawing.Point(6, 81);
+            this.chkUseManualServiceURL.Location = new System.Drawing.Point(6, 122);
             this.chkUseManualServiceURL.Name = "chkUseManualServiceURL";
             this.chkUseManualServiceURL.Size = new System.Drawing.Size(147, 17);
             this.chkUseManualServiceURL.TabIndex = 18;
@@ -218,7 +222,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(24, 101);
+            this.label7.Location = new System.Drawing.Point(24, 142);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(71, 13);
             this.label7.TabIndex = 19;
@@ -227,7 +231,7 @@
             // txtServiceURL
             // 
             this.txtServiceURL.Enabled = false;
-            this.txtServiceURL.Location = new System.Drawing.Point(101, 98);
+            this.txtServiceURL.Location = new System.Drawing.Point(101, 139);
             this.txtServiceURL.Name = "txtServiceURL";
             this.txtServiceURL.Size = new System.Drawing.Size(217, 20);
             this.txtServiceURL.TabIndex = 20;
@@ -235,7 +239,7 @@
             // chkSkipRootFolder
             // 
             this.chkSkipRootFolder.AutoSize = true;
-            this.chkSkipRootFolder.Location = new System.Drawing.Point(27, 212);
+            this.chkSkipRootFolder.Location = new System.Drawing.Point(26, 253);
             this.chkSkipRootFolder.Name = "chkSkipRootFolder";
             this.chkSkipRootFolder.Size = new System.Drawing.Size(142, 17);
             this.chkSkipRootFolder.TabIndex = 21;
@@ -245,18 +249,61 @@
             // chkUseUniqueFileName
             // 
             this.chkUseUniqueFileName.AutoSize = true;
-            this.chkUseUniqueFileName.Location = new System.Drawing.Point(27, 559);
+            this.chkUseUniqueFileName.Location = new System.Drawing.Point(27, 600);
             this.chkUseUniqueFileName.Name = "chkUseUniqueFileName";
             this.chkUseUniqueFileName.Size = new System.Drawing.Size(132, 17);
             this.chkUseUniqueFileName.TabIndex = 22;
             this.chkUseUniqueFileName.Text = "Use Unique File Name";
             this.chkUseUniqueFileName.UseVisualStyleBackColor = true;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(5, 79);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(130, 13);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "Exchange Server Version:";
+            // 
+            // cboExchangeVersion
+            // 
+            this.cboExchangeVersion.FormattingEnabled = true;
+            this.cboExchangeVersion.Location = new System.Drawing.Point(3, 96);
+            this.cboExchangeVersion.Name = "cboExchangeVersion";
+            this.cboExchangeVersion.Size = new System.Drawing.Size(315, 21);
+            this.cboExchangeVersion.TabIndex = 24;
+            // 
+            // lblAllChecked
+            // 
+            this.lblAllChecked.AutoSize = true;
+            this.lblAllChecked.Location = new System.Drawing.Point(262, 279);
+            this.lblAllChecked.Name = "lblAllChecked";
+            this.lblAllChecked.Size = new System.Drawing.Size(18, 13);
+            this.lblAllChecked.TabIndex = 25;
+            this.lblAllChecked.TabStop = true;
+            this.lblAllChecked.Text = "All";
+            this.lblAllChecked.Click += new System.EventHandler(this.lblAllChecked_Click);
+            // 
+            // lblClearChecked
+            // 
+            this.lblClearChecked.AutoSize = true;
+            this.lblClearChecked.Location = new System.Drawing.Point(286, 279);
+            this.lblClearChecked.Name = "lblClearChecked";
+            this.lblClearChecked.Size = new System.Drawing.Size(31, 13);
+            this.lblClearChecked.TabIndex = 26;
+            this.lblClearChecked.TabStop = true;
+            this.lblClearChecked.Text = "Clear";
+            this.lblClearChecked.Click += new System.EventHandler(this.lblClearChecked_Click);
+            // 
             // OutlookInputToolGui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.Controls.Add(this.lblClearChecked);
+            this.Controls.Add(this.lblAllChecked);
+            this.Controls.Add(this.cboExchangeVersion);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.chkUseUniqueFileName);
             this.Controls.Add(this.chkSkipRootFolder);
             this.Controls.Add(this.txtServiceURL);
@@ -280,7 +327,7 @@
             this.Controls.Add(this.txtUserName);
             this.Controls.Add(this.label1);
             this.Name = "OutlookInputToolGui";
-            this.Size = new System.Drawing.Size(322, 626);
+            this.Size = new System.Drawing.Size(322, 718);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -311,5 +358,9 @@
         private System.Windows.Forms.TextBox txtServiceURL;
         private System.Windows.Forms.CheckBox chkSkipRootFolder;
         private System.Windows.Forms.CheckBox chkUseUniqueFileName;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cboExchangeVersion;
+        private System.Windows.Forms.LinkLabel lblAllChecked;
+        private System.Windows.Forms.LinkLabel lblClearChecked;
     }
 }

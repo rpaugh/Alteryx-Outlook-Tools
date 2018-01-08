@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Exchange.WebServices.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,27 @@ namespace OutlookTools
 
         public static int InnerInt(this XmlElement xml)
         {
-            Int16 value = 4;
+            Int16 value = 0;
+
+            if (xml != null)
+            {
+                Int16.TryParse(xml.InnerText, out value);
+
+                return value;
+            }
+
+            return value;
+        }
+
+        public static int InnerInt<T>(this XmlElement xml) where T : IComparable, IFormattable, IConvertible
+        {
+            Int16 value = 0;
+
+            if (typeof(T) == typeof(ExchangeVersion))
+                value = 5;
+
+            if (typeof(T) == typeof(WellKnownFolderName))
+                value = 4;
 
             if (xml != null)
             {

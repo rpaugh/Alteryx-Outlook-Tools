@@ -17,6 +17,7 @@ namespace OutlookTools
         public int RecordLimit { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public int ExchangeServerVersion { get; set; }
         public bool UseManualServiceURL { get; set; }
         public string ServiceURL { get; set; }
         public WellKnownFolderName Folder { get; set; }
@@ -37,7 +38,7 @@ namespace OutlookTools
         {
             _oItems = new List<OItem>();
 
-            ExchangeService service = new ExchangeService();
+            ExchangeService service = new ExchangeService((ExchangeVersion)ExchangeServerVersion);
             List<Folder> folders = new List<Folder>();
 
             // Set specific credentials.

@@ -3736,7 +3736,7 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>732265836</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>732265836</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>732265836</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>https://sites.google.com/view/paughtech/alteryx-outlook-input</td><td>0</td><td/><td>-878325526</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>https://sites.google.com/view/paughtech/alteryx-tools/alteryx-outlook-input</td><td>0</td><td/><td>413532334</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>Paugh Tech</td><td>0</td><td/><td>-878328759</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>OUTLOO~1.INI|OutlookInputPlugin.ini</td><td>0</td><td/><td>-878326135</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Settings</td><td>0</td><td/><td>-878327670</td></row>
@@ -3991,7 +3991,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{E5CC8676-0C28-40A6-9B45-EF91F056CC02}</td></row>
 		<row><td>ISUSSignature</td><td>{606EBE3F-CB9D-424E-8A9F-7C5898C4D2BD}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewRelease,viewAppFiles,viewObjects,viewIniFiles,viewSystemSearch,viewCustomActions,viewISToday,viewUpgradePaths,viewProject</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewRelease,viewAppFiles,viewObjects,viewIniFiles,viewSystemSearch,viewCustomActions,viewISToday,viewUpgradePaths,viewProject,viewUpdateService</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4365,7 +4365,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{48A9D157-65EE-4117-95B2-F2B7843B26E0}</td><td/></row>
+		<row><td>ProductCode</td><td>{E203E671-7822-4BD7-989C-55CE96BE576C}</td><td/></row>
 		<row><td>ProductName</td><td>Alteryx Outlook Tools</td><td/></row>
 		<row><td>ProductVersion</td><td>2.0.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
