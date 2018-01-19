@@ -33,9 +33,11 @@
   <ItemGroup>
     <Reference Include="AlteryxGuiToolkit">
       <HintPath>..\..\..\..\..\Google Drive\Docs\AlteryxGuiToolkit.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="AlteryxRecordInfo.Net">
       <HintPath>..\..\..\..\..\Google Drive\Docs\AlteryxRecordInfo.Net.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Exchange.WebServices, Version=15.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Exchange.WebServices.2.2\lib\40\Microsoft.Exchange.WebServices.dll</HintPath>
