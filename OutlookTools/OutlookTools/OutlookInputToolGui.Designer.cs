@@ -55,6 +55,9 @@
             this.cboExchangeVersion = new System.Windows.Forms.ComboBox();
             this.lblAllChecked = new System.Windows.Forms.LinkLabel();
             this.lblClearChecked = new System.Windows.Forms.LinkLabel();
+            this.chkUseDifferentMailbox = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtMailbox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -93,7 +96,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 165);
+            this.label3.Location = new System.Drawing.Point(3, 217);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(88, 13);
             this.label3.TabIndex = 4;
@@ -102,7 +105,7 @@
             // cboFolderToSearch
             // 
             this.cboFolderToSearch.FormattingEnabled = true;
-            this.cboFolderToSearch.Location = new System.Drawing.Point(4, 182);
+            this.cboFolderToSearch.Location = new System.Drawing.Point(4, 234);
             this.cboFolderToSearch.Name = "cboFolderToSearch";
             this.cboFolderToSearch.Size = new System.Drawing.Size(315, 21);
             this.cboFolderToSearch.TabIndex = 5;
@@ -112,7 +115,7 @@
             // 
             this.clbFields.CheckOnClick = true;
             this.clbFields.FormattingEnabled = true;
-            this.clbFields.Location = new System.Drawing.Point(4, 295);
+            this.clbFields.Location = new System.Drawing.Point(4, 347);
             this.clbFields.Name = "clbFields";
             this.clbFields.Size = new System.Drawing.Size(314, 259);
             this.clbFields.TabIndex = 6;
@@ -120,7 +123,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(2, 279);
+            this.label4.Location = new System.Drawing.Point(2, 331);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(40, 13);
             this.label4.TabIndex = 7;
@@ -129,7 +132,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 557);
+            this.label5.Location = new System.Drawing.Point(3, 609);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(109, 13);
             this.label5.TabIndex = 8;
@@ -138,14 +141,14 @@
             // lblAttachmentPath
             // 
             this.lblAttachmentPath.AutoSize = true;
-            this.lblAttachmentPath.Location = new System.Drawing.Point(119, 557);
+            this.lblAttachmentPath.Location = new System.Drawing.Point(119, 609);
             this.lblAttachmentPath.Name = "lblAttachmentPath";
             this.lblAttachmentPath.Size = new System.Drawing.Size(0, 13);
             this.lblAttachmentPath.TabIndex = 9;
             // 
             // btnAttachmentPath
             // 
-            this.btnAttachmentPath.Location = new System.Drawing.Point(243, 572);
+            this.btnAttachmentPath.Location = new System.Drawing.Point(243, 624);
             this.btnAttachmentPath.Name = "btnAttachmentPath";
             this.btnAttachmentPath.Size = new System.Drawing.Size(75, 23);
             this.btnAttachmentPath.TabIndex = 10;
@@ -155,14 +158,14 @@
             // 
             // txtAttachmentPath
             // 
-            this.txtAttachmentPath.Location = new System.Drawing.Point(4, 574);
+            this.txtAttachmentPath.Location = new System.Drawing.Point(4, 626);
             this.txtAttachmentPath.Name = "txtAttachmentPath";
             this.txtAttachmentPath.Size = new System.Drawing.Size(233, 20);
             this.txtAttachmentPath.TabIndex = 11;
             // 
             // txtQueryString
             // 
-            this.txtQueryString.Location = new System.Drawing.Point(4, 640);
+            this.txtQueryString.Location = new System.Drawing.Point(4, 692);
             this.txtQueryString.Name = "txtQueryString";
             this.txtQueryString.Size = new System.Drawing.Size(315, 20);
             this.txtQueryString.TabIndex = 13;
@@ -171,7 +174,7 @@
             // 
             this.lblQueryStringHelpLink.AutoSize = true;
             this.lblQueryStringHelpLink.LinkArea = new System.Windows.Forms.LinkArea(14, 1);
-            this.lblQueryStringHelpLink.Location = new System.Drawing.Point(6, 620);
+            this.lblQueryStringHelpLink.Location = new System.Drawing.Point(6, 672);
             this.lblQueryStringHelpLink.Name = "lblQueryStringHelpLink";
             this.lblQueryStringHelpLink.Size = new System.Drawing.Size(88, 17);
             this.lblQueryStringHelpLink.TabIndex = 14;
@@ -183,7 +186,7 @@
             // chkIncludeSubFolders
             // 
             this.chkIncludeSubFolders.AutoSize = true;
-            this.chkIncludeSubFolders.Location = new System.Drawing.Point(5, 210);
+            this.chkIncludeSubFolders.Location = new System.Drawing.Point(5, 262);
             this.chkIncludeSubFolders.Name = "chkIncludeSubFolders";
             this.chkIncludeSubFolders.Size = new System.Drawing.Size(120, 17);
             this.chkIncludeSubFolders.TabIndex = 15;
@@ -194,7 +197,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(23, 230);
+            this.label6.Location = new System.Drawing.Point(23, 282);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(92, 13);
             this.label6.TabIndex = 16;
@@ -203,7 +206,7 @@
             // txtSubFolderName
             // 
             this.txtSubFolderName.Enabled = false;
-            this.txtSubFolderName.Location = new System.Drawing.Point(121, 227);
+            this.txtSubFolderName.Location = new System.Drawing.Point(121, 279);
             this.txtSubFolderName.Name = "txtSubFolderName";
             this.txtSubFolderName.Size = new System.Drawing.Size(196, 20);
             this.txtSubFolderName.TabIndex = 17;
@@ -239,7 +242,7 @@
             // chkSkipRootFolder
             // 
             this.chkSkipRootFolder.AutoSize = true;
-            this.chkSkipRootFolder.Location = new System.Drawing.Point(26, 253);
+            this.chkSkipRootFolder.Location = new System.Drawing.Point(26, 305);
             this.chkSkipRootFolder.Name = "chkSkipRootFolder";
             this.chkSkipRootFolder.Size = new System.Drawing.Size(142, 17);
             this.chkSkipRootFolder.TabIndex = 21;
@@ -249,7 +252,7 @@
             // chkUseUniqueFileName
             // 
             this.chkUseUniqueFileName.AutoSize = true;
-            this.chkUseUniqueFileName.Location = new System.Drawing.Point(27, 600);
+            this.chkUseUniqueFileName.Location = new System.Drawing.Point(27, 652);
             this.chkUseUniqueFileName.Name = "chkUseUniqueFileName";
             this.chkUseUniqueFileName.Size = new System.Drawing.Size(132, 17);
             this.chkUseUniqueFileName.TabIndex = 22;
@@ -276,7 +279,7 @@
             // lblAllChecked
             // 
             this.lblAllChecked.AutoSize = true;
-            this.lblAllChecked.Location = new System.Drawing.Point(262, 279);
+            this.lblAllChecked.Location = new System.Drawing.Point(262, 331);
             this.lblAllChecked.Name = "lblAllChecked";
             this.lblAllChecked.Size = new System.Drawing.Size(18, 13);
             this.lblAllChecked.TabIndex = 25;
@@ -287,7 +290,7 @@
             // lblClearChecked
             // 
             this.lblClearChecked.AutoSize = true;
-            this.lblClearChecked.Location = new System.Drawing.Point(286, 279);
+            this.lblClearChecked.Location = new System.Drawing.Point(286, 331);
             this.lblClearChecked.Name = "lblClearChecked";
             this.lblClearChecked.Size = new System.Drawing.Size(31, 13);
             this.lblClearChecked.TabIndex = 26;
@@ -295,11 +298,42 @@
             this.lblClearChecked.Text = "Clear";
             this.lblClearChecked.Click += new System.EventHandler(this.lblClearChecked_Click);
             // 
+            // chkUseDifferentMailbox
+            // 
+            this.chkUseDifferentMailbox.AutoSize = true;
+            this.chkUseDifferentMailbox.Location = new System.Drawing.Point(6, 165);
+            this.chkUseDifferentMailbox.Name = "chkUseDifferentMailbox";
+            this.chkUseDifferentMailbox.Size = new System.Drawing.Size(133, 17);
+            this.chkUseDifferentMailbox.TabIndex = 27;
+            this.chkUseDifferentMailbox.Text = "Use Different Mailbox?";
+            this.chkUseDifferentMailbox.UseVisualStyleBackColor = true;
+            this.chkUseDifferentMailbox.Click += new System.EventHandler(this.chkUseDifferentMailbox_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(27, 189);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(46, 13);
+            this.label9.TabIndex = 28;
+            this.label9.Text = "Mailbox:";
+            // 
+            // txtMailbox
+            // 
+            this.txtMailbox.Enabled = false;
+            this.txtMailbox.Location = new System.Drawing.Point(101, 186);
+            this.txtMailbox.Name = "txtMailbox";
+            this.txtMailbox.Size = new System.Drawing.Size(217, 20);
+            this.txtMailbox.TabIndex = 29;
+            // 
             // OutlookInputToolGui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.Controls.Add(this.txtMailbox);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.chkUseDifferentMailbox);
             this.Controls.Add(this.lblClearChecked);
             this.Controls.Add(this.lblAllChecked);
             this.Controls.Add(this.cboExchangeVersion);
@@ -327,7 +361,7 @@
             this.Controls.Add(this.txtUserName);
             this.Controls.Add(this.label1);
             this.Name = "OutlookInputToolGui";
-            this.Size = new System.Drawing.Size(322, 718);
+            this.Size = new System.Drawing.Size(323, 726);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -362,5 +396,8 @@
         private System.Windows.Forms.ComboBox cboExchangeVersion;
         private System.Windows.Forms.LinkLabel lblAllChecked;
         private System.Windows.Forms.LinkLabel lblClearChecked;
+        private System.Windows.Forms.CheckBox chkUseDifferentMailbox;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtMailbox;
     }
 }

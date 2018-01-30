@@ -68,6 +68,7 @@ namespace OutlookTools
                 // Update the XmlFile and ElementName textboxes.
                 txtUserName.Text = xmlConfig.UserName;
                 txtPassword.Text = xmlConfig.Password;
+                cboExchangeVersion.SelectedValue = xmlConfig.ExchangeVersion;
                 chkUseManualServiceURL.Checked = xmlConfig.UseManualServiceURL;
 
                 if (xmlConfig.UseManualServiceURL)
@@ -79,8 +80,19 @@ namespace OutlookTools
                     txtServiceURL.Enabled = false;
                 }
 
-                cboExchangeVersion.SelectedValue = xmlConfig.ExchangeVersion;
                 txtServiceURL.Text = xmlConfig.ServiceURL;
+                chkUseDifferentMailbox.Checked = xmlConfig.UseDifferentMailbox;
+
+                if (xmlConfig.UseDifferentMailbox)
+                {
+                    txtMailbox.Enabled = true;
+                }
+                else
+                {
+                    txtMailbox.Enabled = false;
+                }
+
+                txtMailbox.Text = xmlConfig.Mailbox;
                 cboFolderToSearch.SelectedValue = xmlConfig.Folder;
                 txtAttachmentPath.Text = xmlConfig.AttachmentPath;
                 txtQueryString.Text = xmlConfig.QueryString;
@@ -148,6 +160,12 @@ namespace OutlookTools
 
             XmlElement serviceURL = XmlHelpers.GetOrCreateChildNode(eConfig, "ServiceURL");
             serviceURL.InnerText = txtServiceURL.Text;
+
+            XmlElement useDifferentMailbox = XmlHelpers.GetOrCreateChildNode(eConfig, "UseDifferentMailbox");
+            useDifferentMailbox.InnerText = chkUseDifferentMailbox.Checked.ToString();
+
+            XmlElement mailbox = XmlHelpers.GetOrCreateChildNode(eConfig, "Mailbox");
+            mailbox.InnerText = txtMailbox.Text;
 
             XmlElement folder = XmlHelpers.GetOrCreateChildNode(eConfig, "Folder");
             folder.InnerText = cboFolderToSearch.SelectedValue.ToString();
@@ -238,6 +256,18 @@ namespace OutlookTools
             }
         }
 
+        private void chkUseDifferentMailbox_Click(object sender, EventArgs e)
+        {
+            if (chkUseDifferentMailbox.Checked)
+            {
+                txtMailbox.Enabled = true;
+            }
+            else
+            {
+                txtMailbox.Enabled = false;
+            }
+        }
+
         private void cboExchangeVersion_SelectedValueChanged(object sender, EventArgs e)
         {
             RefreshItemList();
@@ -302,6 +332,8 @@ namespace OutlookTools
         public int ExchangeVersion { get; private set; }
         public bool UseManualServiceURL { get; private set; }
         public string ServiceURL { get; private set; }
+        public bool UseDifferentMailbox { get; private set; }
+        public string Mailbox { get; private set; }
         public int Folder { get; private set; }
         public string AttachmentPath { get; private set; }
         public string QueryString { get; private set; }
@@ -314,13 +346,15 @@ namespace OutlookTools
 
         // Note that the constructor is private.  Instances are created through the
         // LoadFromConfigration method.
-        XmlInputConfiguration(string userName, string password, int exchangeVersion, bool useManualServiceURL, string serviceURL, int folder, string attachmentPath, string queryString, bool includeSubFolders, string subFolderName, bool skipRootFolder, bool useUniqueFileName)
+        XmlInputConfiguration(string userName, string password, int exchangeVersion, bool useManualServiceURL, string serviceURL, bool useDifferentMailbox, string mailbox, int folder, string attachmentPath, string queryString, bool includeSubFolders, string subFolderName, bool skipRootFolder, bool useUniqueFileName)
         {
             UserName = userName;
             Password = password;
             ExchangeVersion = exchangeVersion;
             UseManualServiceURL = useManualServiceURL;
             ServiceURL = serviceURL;
+            UseDifferentMailbox = useDifferentMailbox;
+            Mailbox = mailbox;
             Folder = folder;
             AttachmentPath = attachmentPath;
             QueryString = queryString;
@@ -358,6 +392,10 @@ namespace OutlookTools
 
             XmlElement serviceURL = (XmlElement)eConfig.SelectSingleNode("ServiceURL");
 
+            XmlElement useDifferentMailbox = (XmlElement)eConfig.SelectSingleNode("UseDifferentMailbox");
+
+            XmlElement mailbox = (XmlElement)eConfig.SelectSingleNode("Mailbox");
+
             XmlElement folder = (XmlElement)eConfig.SelectSingleNode("Folder");
 
             XmlElement attachmentPath = (XmlElement)eConfig.SelectSingleNode("AttachmentPath");
@@ -375,7 +413,7 @@ namespace OutlookTools
             if (userName != null && password != null)
             {
                 // Create the new XmlInputConfiguration object.
-                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerString(), password.InnerString(), exchangeVersion.InnerInt<ExchangeVersion>(), useManualServiceURL.InnerBoolean(), serviceURL.InnerString(), folder.InnerInt<WellKnownFolderName>(), attachmentPath.InnerString(), queryString.InnerString(), includeSubFolders.InnerBoolean(), subFolderName.InnerString(), skipRootFolder.InnerBoolean(), useUniqueFileName.InnerBoolean());
+                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerString(), password.InnerString(), exchangeVersion.InnerInt<ExchangeVersion>(), useManualServiceURL.InnerBoolean(), serviceURL.InnerString(), useDifferentMailbox.InnerBoolean(), mailbox.InnerString(), folder.InnerInt<WellKnownFolderName>(), attachmentPath.InnerString(), queryString.InnerString(), includeSubFolders.InnerBoolean(), subFolderName.InnerString(), skipRootFolder.InnerBoolean(), useUniqueFileName.InnerBoolean());
 
                 // Find all of the Field elements in the configuration.
                 XmlNodeList fields = eConfig.SelectNodes("Fields/Field");

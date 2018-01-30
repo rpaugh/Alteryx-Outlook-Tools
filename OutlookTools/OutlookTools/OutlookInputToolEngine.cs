@@ -158,7 +158,7 @@ namespace OutlookTools
                 }
 
                 // Assign the configuration settings and field list to the OutlookEmail object.
-                OutlookEmail email = new OutlookEmail() { UserName = xmlConfig.UserName, Password = xmlConfig.Password, ExchangeServerVersion = xmlConfig.ExchangeVersion, UseManualServiceURL = xmlConfig.UseManualServiceURL, ServiceURL = xmlConfig.ServiceURL, Folder = (WellKnownFolderName)xmlConfig.Folder, AttachmentPath = xmlConfig.AttachmentPath, QueryString = xmlConfig.QueryString, IncludeSubFolders = xmlConfig.IncludeSubFolders, SubFolderName = xmlConfig.SubFolderName, SkipRootFolder = xmlConfig.SkipRootFolder, UseUniqueFileName = xmlConfig.UseUniqueFileName };
+                OutlookEmail email = new OutlookEmail() { UserName = xmlConfig.UserName, Password = xmlConfig.Password, ExchangeServerVersion = xmlConfig.ExchangeVersion, UseManualServiceURL = xmlConfig.UseManualServiceURL, ServiceURL = xmlConfig.ServiceURL, UseDifferentMailbox = xmlConfig.UseDifferentMailbox, Mailbox = xmlConfig.Mailbox, Folder = (WellKnownFolderName)xmlConfig.Folder, AttachmentPath = xmlConfig.AttachmentPath, QueryString = xmlConfig.QueryString, IncludeSubFolders = xmlConfig.IncludeSubFolders, SubFolderName = xmlConfig.SubFolderName, SkipRootFolder = xmlConfig.SkipRootFolder, UseUniqueFileName = xmlConfig.UseUniqueFileName };
                 email.Fields = new PropertySet(propertyDefinitionBase);
 
                 // Get the list of items (this includes attachments if the Attachment field was selected for output).

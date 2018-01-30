@@ -20,6 +20,8 @@ namespace OutlookTools
         public int ExchangeServerVersion { get; set; }
         public bool UseManualServiceURL { get; set; }
         public string ServiceURL { get; set; }
+        public bool UseDifferentMailbox { get; set; }
+        public string Mailbox { get; set; }
         public WellKnownFolderName Folder { get; set; }
         public string AttachmentPath { get; set; }
         public string QueryString { get; set; }
@@ -39,6 +41,7 @@ namespace OutlookTools
             _oItems = new List<OItem>();
 
             ExchangeService service = new ExchangeService((ExchangeVersion)ExchangeServerVersion);
+            String mailbox = (UseDifferentMailbox ? Mailbox : UserName);
             List<Folder> folders = new List<Folder>();
 
             // Set specific credentials.
@@ -57,7 +60,7 @@ namespace OutlookTools
             if (!SkipRootFolder)
             {
                 // Get items from the selected root folder.
-                GetItemsFromFolder(service, Folder, true);
+                GetItemsFromFolder(service, new FolderId(Folder, mailbox), true);
             }
 
             // Search sub-folders if desired.
@@ -72,11 +75,11 @@ namespace OutlookTools
                     // Search for only a specific sub-folder if supplied, otherwise search all sub-folders for the selected root folder.
                     if (!String.IsNullOrWhiteSpace(SubFolderName))
                     {
-                        folderResults = service.FindFolders(Folder, new SearchFilter.ContainsSubstring(FolderSchema.DisplayName, SubFolderName), folderView);
+                        folderResults = service.FindFolders(new FolderId(Folder, mailbox), new SearchFilter.ContainsSubstring(FolderSchema.DisplayName, SubFolderName), folderView);
                     }
                     else
                     {
-                        folderResults = service.FindFolders(Folder, folderView);
+                        folderResults = service.FindFolders(new FolderId(Folder, mailbox), folderView);
                     }
 
                     foreach (var folder in folderResults)
@@ -106,7 +109,7 @@ namespace OutlookTools
             do
             {
                 // Query items via EWS.
-                results = service.FindItems(isRoot ? (WellKnownFolderName)folder : ((Folder)folder).Id, QueryString, itemView);
+                results = service.FindItems(isRoot ? (FolderId)folder : ((Folder)folder).Id, QueryString, itemView);
 
                 foreach (var item in results.Items)
                 {
