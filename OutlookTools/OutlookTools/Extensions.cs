@@ -25,6 +25,20 @@ namespace OutlookTools
             return value;
         }
 
+        public static DateTime InnerDateTime(this XmlElement xml)
+        {
+            DateTime value = DateTime.MinValue;
+
+            if (xml != null)
+            {
+                DateTime.TryParse(xml.InnerText, out value);
+
+                return value;
+            }
+
+            return value;
+        }
+
         public static int InnerInt(this XmlElement xml)
         {
             Int16 value = 0;

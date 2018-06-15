@@ -94,6 +94,19 @@ namespace OutlookTools
 
                 txtMailbox.Text = xmlConfig.Mailbox;
                 cboFolderToSearch.SelectedValue = xmlConfig.Folder;
+                chkIncludeRecurringEvents.Checked = xmlConfig.IncludeRecurringEvents;
+
+                if (xmlConfig.IncludeRecurringEvents)
+                {
+                    dpStartDate.Enabled = true;
+                    dpEndDate.Enabled = true;
+                }
+                else
+                {
+                    dpStartDate.Enabled = false;
+                    dpEndDate.Enabled = false;
+                }
+
                 txtAttachmentPath.Text = xmlConfig.AttachmentPath;
                 txtQueryString.Text = xmlConfig.QueryString;
                 chkIncludeSubFolders.Checked = xmlConfig.IncludeSubFolders;
@@ -170,6 +183,15 @@ namespace OutlookTools
             XmlElement folder = XmlHelpers.GetOrCreateChildNode(eConfig, "Folder");
             folder.InnerText = cboFolderToSearch.SelectedValue.ToString();
 
+            XmlElement includeRecurringEvents = XmlHelpers.GetOrCreateChildNode(eConfig, "IncludeRecurringEvents");
+            includeRecurringEvents.InnerText = chkIncludeRecurringEvents.Checked.ToString();
+
+            XmlElement startDate = XmlHelpers.GetOrCreateChildNode(eConfig, "StartDate");
+            startDate.InnerText = dpStartDate.Text;
+
+            XmlElement endDate = XmlHelpers.GetOrCreateChildNode(eConfig, "EndDate");
+            endDate.InnerText = dpEndDate.Text;
+
             XmlElement attachmentPath = XmlHelpers.GetOrCreateChildNode(eConfig, "AttachmentPath");
             attachmentPath.InnerText = txtAttachmentPath.Text;
 
@@ -241,6 +263,20 @@ namespace OutlookTools
             {
                 txtSubFolderName.Enabled = false;
                 chkSkipRootFolder.Enabled = false;
+            }
+        }
+
+        private void chkIncludeRecurringEvents_Click(object sender, EventArgs e)
+        {
+            if (chkIncludeRecurringEvents.Checked)
+            {
+                dpStartDate.Enabled = true;
+                dpEndDate.Enabled = true;
+            }
+            else
+            {
+                dpStartDate.Enabled = false;
+                dpEndDate.Enabled = false;
             }
         }
 
@@ -335,6 +371,9 @@ namespace OutlookTools
         public bool UseDifferentMailbox { get; private set; }
         public string Mailbox { get; private set; }
         public int Folder { get; private set; }
+        public bool IncludeRecurringEvents { get; private set; }
+        public DateTime StartDate { get; private set; }
+        public DateTime EndDate { get; private set; }
         public string AttachmentPath { get; private set; }
         public string QueryString { get; private set; }
         public int RecordLimit { get; private set; }
@@ -346,7 +385,7 @@ namespace OutlookTools
 
         // Note that the constructor is private.  Instances are created through the
         // LoadFromConfigration method.
-        XmlInputConfiguration(string userName, string password, int exchangeVersion, bool useManualServiceURL, string serviceURL, bool useDifferentMailbox, string mailbox, int folder, string attachmentPath, string queryString, bool includeSubFolders, string subFolderName, bool skipRootFolder, bool useUniqueFileName)
+        XmlInputConfiguration(string userName, string password, int exchangeVersion, bool useManualServiceURL, string serviceURL, bool useDifferentMailbox, string mailbox, int folder, bool includeRecurringEvents, DateTime startDate, DateTime endDate, string attachmentPath, string queryString, bool includeSubFolders, string subFolderName, bool skipRootFolder, bool useUniqueFileName)
         {
             UserName = userName;
             Password = password;
@@ -356,6 +395,9 @@ namespace OutlookTools
             UseDifferentMailbox = useDifferentMailbox;
             Mailbox = mailbox;
             Folder = folder;
+            IncludeRecurringEvents = includeRecurringEvents;
+            StartDate = startDate;
+            EndDate = endDate;
             AttachmentPath = attachmentPath;
             QueryString = queryString;
             IncludeSubFolders = includeSubFolders;
@@ -398,6 +440,12 @@ namespace OutlookTools
 
             XmlElement folder = (XmlElement)eConfig.SelectSingleNode("Folder");
 
+            XmlElement includeRecurringEvents = (XmlElement)eConfig.SelectSingleNode("IncludeRecurringEvents");
+
+            XmlElement startDate = (XmlElement)eConfig.SelectSingleNode("StartDate");
+
+            XmlElement endDate = (XmlElement)eConfig.SelectSingleNode("EndDate");
+
             XmlElement attachmentPath = (XmlElement)eConfig.SelectSingleNode("AttachmentPath");
 
             XmlElement queryString = (XmlElement)eConfig.SelectSingleNode("QueryString");
@@ -413,7 +461,7 @@ namespace OutlookTools
             if (userName != null && password != null)
             {
                 // Create the new XmlInputConfiguration object.
-                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerString(), password.InnerString(), exchangeVersion.InnerInt<ExchangeVersion>(), useManualServiceURL.InnerBoolean(), serviceURL.InnerString(), useDifferentMailbox.InnerBoolean(), mailbox.InnerString(), folder.InnerInt<WellKnownFolderName>(), attachmentPath.InnerString(), queryString.InnerString(), includeSubFolders.InnerBoolean(), subFolderName.InnerString(), skipRootFolder.InnerBoolean(), useUniqueFileName.InnerBoolean());
+                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerString(), password.InnerString(), exchangeVersion.InnerInt<ExchangeVersion>(), useManualServiceURL.InnerBoolean(), serviceURL.InnerString(), useDifferentMailbox.InnerBoolean(), mailbox.InnerString(), folder.InnerInt<WellKnownFolderName>(), includeRecurringEvents.InnerBoolean(), startDate.InnerDateTime(), endDate.InnerDateTime(), attachmentPath.InnerString(), queryString.InnerString(), includeSubFolders.InnerBoolean(), subFolderName.InnerString(), skipRootFolder.InnerBoolean(), useUniqueFileName.InnerBoolean());
 
                 // Find all of the Field elements in the configuration.
                 XmlNodeList fields = eConfig.SelectNodes("Fields/Field");

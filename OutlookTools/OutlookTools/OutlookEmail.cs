@@ -23,6 +23,9 @@ namespace OutlookTools
         public bool UseDifferentMailbox { get; set; }
         public string Mailbox { get; set; }
         public WellKnownFolderName Folder { get; set; }
+        public bool IncludeRecurringEvents { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public string AttachmentPath { get; set; }
         public string QueryString { get; set; }
         public bool IncludeSubFolders { get; set; }
@@ -104,7 +107,9 @@ namespace OutlookTools
         public void GetItemsFromFolder(ExchangeService service, object folder, bool isRoot)
         {
             ItemView itemView = new ItemView(1000) { Traversal = ItemTraversal.Shallow };
+            CalendarView calendarView = new CalendarView(new DateTime(2018, 1, 1), new DateTime(2018, 12, 31));
             FindItemsResults<Item> results = null;
+            FindItemsResults<Appointment> calendarResults = null;
 
             do
             {
@@ -130,6 +135,34 @@ namespace OutlookTools
                 itemView.Offset += results.Items.Count;
             }
             while (results.MoreAvailable);
+
+            if (Folder == WellKnownFolderName.Calendar && IncludeRecurringEvents)
+            {
+                do
+                {
+                    // Query calendar items via EWS.
+                    calendarResults = service.FindAppointments(isRoot ? (FolderId)folder : ((Folder)folder).Id, calendarView);
+
+                    foreach (var item in calendarResults.Items)
+                    {
+                        // Bind a calendar item and pull the specified set of properties.
+                        OItem oItem = new OItem() { Item = Item.Bind(service, item.Id, Fields), Attachments = new List<ItemAttachment>() };
+
+                        var attachments = string.Empty;
+
+                        // Extract attachments from each calendar item if found.
+                        if (!String.IsNullOrEmpty(AttachmentPath))
+                        {
+                            oItem.Attachments = GetAttachmentsFromItem(oItem.Item);
+                        }
+
+                        _oItems.Add(oItem);
+                    }
+
+                    itemView.Offset += calendarResults.Items.Count;
+                }
+                while (calendarResults.MoreAvailable);
+            }
         }
 
         public List<ItemAttachment> GetAttachmentsFromItem(Item item)

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OutlookTools</RootNamespace>
     <AssemblyName>OutlookTools</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -32,11 +32,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AlteryxGuiToolkit">
-      <HintPath>..\..\..\..\..\Desktop\Virtual Share\AlteryxGuiToolkit.dll</HintPath>
+      <HintPath>G:\My Drive\Docs\AlteryxGuiToolkit.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AlteryxRecordInfo.Net">
-      <HintPath>..\..\..\..\..\Desktop\Virtual Share\AlteryxRecordInfo.Net.dll</HintPath>
+      <HintPath>G:\My Drive\Docs\AlteryxRecordInfo.Net.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Exchange.WebServices, Version=15.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

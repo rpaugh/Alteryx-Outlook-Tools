@@ -58,6 +58,12 @@
             this.chkUseDifferentMailbox = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtMailbox = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.dpStartDate = new System.Windows.Forms.DateTimePicker();
+            this.dpEndDate = new System.Windows.Forms.DateTimePicker();
+            this.label12 = new System.Windows.Forms.Label();
+            this.chkIncludeRecurringEvents = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -115,7 +121,7 @@
             // 
             this.clbFields.CheckOnClick = true;
             this.clbFields.FormattingEnabled = true;
-            this.clbFields.Location = new System.Drawing.Point(4, 347);
+            this.clbFields.Location = new System.Drawing.Point(4, 443);
             this.clbFields.Name = "clbFields";
             this.clbFields.Size = new System.Drawing.Size(314, 259);
             this.clbFields.TabIndex = 6;
@@ -123,7 +129,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(2, 331);
+            this.label4.Location = new System.Drawing.Point(2, 427);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(40, 13);
             this.label4.TabIndex = 7;
@@ -132,7 +138,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 609);
+            this.label5.Location = new System.Drawing.Point(3, 705);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(109, 13);
             this.label5.TabIndex = 8;
@@ -141,14 +147,14 @@
             // lblAttachmentPath
             // 
             this.lblAttachmentPath.AutoSize = true;
-            this.lblAttachmentPath.Location = new System.Drawing.Point(119, 609);
+            this.lblAttachmentPath.Location = new System.Drawing.Point(119, 705);
             this.lblAttachmentPath.Name = "lblAttachmentPath";
             this.lblAttachmentPath.Size = new System.Drawing.Size(0, 13);
             this.lblAttachmentPath.TabIndex = 9;
             // 
             // btnAttachmentPath
             // 
-            this.btnAttachmentPath.Location = new System.Drawing.Point(243, 624);
+            this.btnAttachmentPath.Location = new System.Drawing.Point(243, 720);
             this.btnAttachmentPath.Name = "btnAttachmentPath";
             this.btnAttachmentPath.Size = new System.Drawing.Size(75, 23);
             this.btnAttachmentPath.TabIndex = 10;
@@ -158,14 +164,14 @@
             // 
             // txtAttachmentPath
             // 
-            this.txtAttachmentPath.Location = new System.Drawing.Point(4, 626);
+            this.txtAttachmentPath.Location = new System.Drawing.Point(4, 722);
             this.txtAttachmentPath.Name = "txtAttachmentPath";
             this.txtAttachmentPath.Size = new System.Drawing.Size(233, 20);
             this.txtAttachmentPath.TabIndex = 11;
             // 
             // txtQueryString
             // 
-            this.txtQueryString.Location = new System.Drawing.Point(4, 692);
+            this.txtQueryString.Location = new System.Drawing.Point(4, 788);
             this.txtQueryString.Name = "txtQueryString";
             this.txtQueryString.Size = new System.Drawing.Size(315, 20);
             this.txtQueryString.TabIndex = 13;
@@ -174,7 +180,7 @@
             // 
             this.lblQueryStringHelpLink.AutoSize = true;
             this.lblQueryStringHelpLink.LinkArea = new System.Windows.Forms.LinkArea(14, 1);
-            this.lblQueryStringHelpLink.Location = new System.Drawing.Point(6, 672);
+            this.lblQueryStringHelpLink.Location = new System.Drawing.Point(6, 768);
             this.lblQueryStringHelpLink.Name = "lblQueryStringHelpLink";
             this.lblQueryStringHelpLink.Size = new System.Drawing.Size(88, 17);
             this.lblQueryStringHelpLink.TabIndex = 14;
@@ -252,7 +258,7 @@
             // chkUseUniqueFileName
             // 
             this.chkUseUniqueFileName.AutoSize = true;
-            this.chkUseUniqueFileName.Location = new System.Drawing.Point(27, 652);
+            this.chkUseUniqueFileName.Location = new System.Drawing.Point(27, 748);
             this.chkUseUniqueFileName.Name = "chkUseUniqueFileName";
             this.chkUseUniqueFileName.Size = new System.Drawing.Size(132, 17);
             this.chkUseUniqueFileName.TabIndex = 22;
@@ -279,7 +285,7 @@
             // lblAllChecked
             // 
             this.lblAllChecked.AutoSize = true;
-            this.lblAllChecked.Location = new System.Drawing.Point(262, 331);
+            this.lblAllChecked.Location = new System.Drawing.Point(262, 427);
             this.lblAllChecked.Name = "lblAllChecked";
             this.lblAllChecked.Size = new System.Drawing.Size(18, 13);
             this.lblAllChecked.TabIndex = 25;
@@ -290,7 +296,7 @@
             // lblClearChecked
             // 
             this.lblClearChecked.AutoSize = true;
-            this.lblClearChecked.Location = new System.Drawing.Point(286, 331);
+            this.lblClearChecked.Location = new System.Drawing.Point(286, 427);
             this.lblClearChecked.Name = "lblClearChecked";
             this.lblClearChecked.Size = new System.Drawing.Size(31, 13);
             this.lblClearChecked.TabIndex = 26;
@@ -326,11 +332,71 @@
             this.txtMailbox.Size = new System.Drawing.Size(217, 20);
             this.txtMailbox.TabIndex = 29;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(8, 329);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(122, 13);
+            this.label10.TabIndex = 30;
+            this.label10.Text = "For Calendar Items Only:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(33, 375);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(58, 13);
+            this.label11.TabIndex = 31;
+            this.label11.Text = "Start Date:";
+            // 
+            // dpStartDate
+            // 
+            this.dpStartDate.Enabled = false;
+            this.dpStartDate.Location = new System.Drawing.Point(119, 369);
+            this.dpStartDate.Name = "dpStartDate";
+            this.dpStartDate.Size = new System.Drawing.Size(200, 20);
+            this.dpStartDate.TabIndex = 32;
+            // 
+            // dpEndDate
+            // 
+            this.dpEndDate.Enabled = false;
+            this.dpEndDate.Location = new System.Drawing.Point(119, 395);
+            this.dpEndDate.Name = "dpEndDate";
+            this.dpEndDate.Size = new System.Drawing.Size(200, 20);
+            this.dpEndDate.TabIndex = 33;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(33, 401);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(55, 13);
+            this.label12.TabIndex = 34;
+            this.label12.Text = "End Date:";
+            // 
+            // chkIncludeRecurringEvents
+            // 
+            this.chkIncludeRecurringEvents.AutoSize = true;
+            this.chkIncludeRecurringEvents.Location = new System.Drawing.Point(35, 346);
+            this.chkIncludeRecurringEvents.Name = "chkIncludeRecurringEvents";
+            this.chkIncludeRecurringEvents.Size = new System.Drawing.Size(152, 17);
+            this.chkIncludeRecurringEvents.TabIndex = 35;
+            this.chkIncludeRecurringEvents.Text = "Include Recurring Events?";
+            this.chkIncludeRecurringEvents.UseVisualStyleBackColor = true;
+            this.chkIncludeRecurringEvents.Click += new System.EventHandler(this.chkIncludeRecurringEvents_Click);
+            // 
             // OutlookInputToolGui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.Controls.Add(this.chkIncludeRecurringEvents);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.dpEndDate);
+            this.Controls.Add(this.dpStartDate);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.txtMailbox);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.chkUseDifferentMailbox);
@@ -361,7 +427,7 @@
             this.Controls.Add(this.txtUserName);
             this.Controls.Add(this.label1);
             this.Name = "OutlookInputToolGui";
-            this.Size = new System.Drawing.Size(323, 726);
+            this.Size = new System.Drawing.Size(323, 813);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -399,5 +465,11 @@
         private System.Windows.Forms.CheckBox chkUseDifferentMailbox;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtMailbox;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.DateTimePicker dpStartDate;
+        private System.Windows.Forms.DateTimePicker dpEndDate;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.CheckBox chkIncludeRecurringEvents;
     }
 }
