@@ -107,6 +107,9 @@ namespace OutlookTools
                     dpEndDate.Enabled = false;
                 }
 
+                dpStartDate.Value = xmlConfig.StartDate;
+                dpEndDate.Value = xmlConfig.EndDate;
+
                 txtAttachmentPath.Text = xmlConfig.AttachmentPath;
                 txtQueryString.Text = xmlConfig.QueryString;
                 chkIncludeSubFolders.Checked = xmlConfig.IncludeSubFolders;

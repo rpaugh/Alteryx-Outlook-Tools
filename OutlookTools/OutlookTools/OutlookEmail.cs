@@ -107,7 +107,7 @@ namespace OutlookTools
         public void GetItemsFromFolder(ExchangeService service, object folder, bool isRoot)
         {
             ItemView itemView = new ItemView(1000) { Traversal = ItemTraversal.Shallow };
-            CalendarView calendarView = new CalendarView(new DateTime(2018, 1, 1), new DateTime(2018, 12, 31));
+            CalendarView calendarView = new CalendarView(StartDate, EndDate);
             FindItemsResults<Item> results = null;
             FindItemsResults<Appointment> calendarResults = null;
 
