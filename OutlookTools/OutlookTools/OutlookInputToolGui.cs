@@ -331,6 +331,12 @@ namespace OutlookTools
 
                     clbFields.DataSource = new BindingSource(fields, null);
                     break;
+                case "9":
+                    fields = Member<TaskSchema>.ToList((ExchangeVersion)cboExchangeVersion.SelectedValue);
+                    fields.Sort((x, y) => x.Value.CompareTo(y.Value));
+
+                    clbFields.DataSource = new BindingSource(fields, null);
+                    break;
                 default:
                     fields = Member<ItemSchema>.ToList((ExchangeVersion)cboExchangeVersion.SelectedValue);
                     fields.Sort((x, y) => x.Value.CompareTo(y.Value));

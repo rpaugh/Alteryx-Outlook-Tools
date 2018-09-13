@@ -151,6 +151,10 @@ namespace OutlookTools
                     {
                         propertyDefinitionBase[i] = (PropertyDefinitionBase)typeof(AppointmentSchema).GetField(xmlConfig.Fields[i].Name).GetValue(null);
                     }
+                    else if ((WellKnownFolderName)xmlConfig.Folder == WellKnownFolderName.Tasks && typeof(TaskSchema).GetField(xmlConfig.Fields[i].Name) != null)
+                    {
+                        propertyDefinitionBase[i] = (PropertyDefinitionBase)typeof(TaskSchema).GetField(xmlConfig.Fields[i].Name).GetValue(null);
+                    }
                     else
                     {
                         propertyDefinitionBase[i] = (PropertyDefinitionBase)typeof(ItemSchema).GetField(xmlConfig.Fields[i].Name).GetValue(null);
