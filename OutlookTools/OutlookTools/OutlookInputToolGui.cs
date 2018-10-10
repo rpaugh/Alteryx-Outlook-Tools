@@ -128,6 +128,7 @@ namespace OutlookTools
                 txtSubFolderName.Text = xmlConfig.SubFolderName;
                 chkSkipRootFolder.Checked = xmlConfig.SkipRootFolder;
                 chkUseUniqueFileName.Checked = xmlConfig.UseUniqueFileName;
+                txtAttachmentFilter.Text = xmlConfig.AttachmentFilter;
 
                 foreach (XmlInputField field in xmlConfig.Fields)
                 {
@@ -212,6 +213,9 @@ namespace OutlookTools
 
             XmlElement useUniqueFileName = XmlHelpers.GetOrCreateChildNode(eConfig, "UseUniqueFileName");
             useUniqueFileName.InnerText = chkUseUniqueFileName.Checked.ToString();
+
+            XmlElement attachmentFilter = XmlHelpers.GetOrCreateChildNode(eConfig, "AttachmentFilter");
+            attachmentFilter.InnerText = txtAttachmentFilter.Text;
 
             // Create a Fields element to contain the information for each output field.
             XmlElement fieldsElement = XmlHelpers.GetOrCreateChildNode(eConfig, "Fields");
@@ -331,6 +335,12 @@ namespace OutlookTools
 
                     clbFields.DataSource = new BindingSource(fields, null);
                     break;
+                case "4":
+                    fields = Member<EmailMessageSchema>.ToList((ExchangeVersion)cboExchangeVersion.SelectedValue);
+                    fields.Sort((x, y) => x.Value.CompareTo(y.Value));
+
+                    clbFields.DataSource = new BindingSource(fields, null);
+                    break;
                 case "9":
                     fields = Member<TaskSchema>.ToList((ExchangeVersion)cboExchangeVersion.SelectedValue);
                     fields.Sort((x, y) => x.Value.CompareTo(y.Value));
@@ -390,11 +400,13 @@ namespace OutlookTools
         public string SubFolderName { get; private set; }
         public bool SkipRootFolder { get; private set; }
         public bool UseUniqueFileName { get; private set; }
+
+        public string AttachmentFilter { get; private set; }
         public List<XmlInputField> Fields { get; private set; }
 
         // Note that the constructor is private.  Instances are created through the
         // LoadFromConfigration method.
-        XmlInputConfiguration(string userName, string password, int exchangeVersion, bool useManualServiceURL, string serviceURL, bool useDifferentMailbox, string mailbox, int folder, bool includeRecurringEvents, DateTime startDate, DateTime endDate, string attachmentPath, string queryString, bool includeSubFolders, string subFolderName, bool skipRootFolder, bool useUniqueFileName)
+        XmlInputConfiguration(string userName, string password, int exchangeVersion, bool useManualServiceURL, string serviceURL, bool useDifferentMailbox, string mailbox, int folder, bool includeRecurringEvents, DateTime startDate, DateTime endDate, string attachmentPath, string queryString, bool includeSubFolders, string subFolderName, bool skipRootFolder, bool useUniqueFileName, string attachmentFilter)
         {
             UserName = userName;
             Password = password;
@@ -413,6 +425,7 @@ namespace OutlookTools
             SubFolderName = subFolderName;
             SkipRootFolder = skipRootFolder;
             UseUniqueFileName = useUniqueFileName;
+            AttachmentFilter = attachmentFilter;
             Fields = new List<XmlInputField>();
         }
 
@@ -467,10 +480,12 @@ namespace OutlookTools
 
             XmlElement useUniqueFileName = (XmlElement)eConfig.SelectSingleNode("UseUniqueFileName");
 
+            XmlElement attachmentFilter = (XmlElement)eConfig.SelectSingleNode("AttachmentFilter");
+
             if (userName != null && password != null)
             {
                 // Create the new XmlInputConfiguration object.
-                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerString(), password.InnerString(), exchangeVersion.InnerInt<ExchangeVersion>(), useManualServiceURL.InnerBoolean(), serviceURL.InnerString(), useDifferentMailbox.InnerBoolean(), mailbox.InnerString(), folder.InnerInt<WellKnownFolderName>(), includeRecurringEvents.InnerBoolean(), startDate.InnerDateTime(), endDate.InnerDateTime(), attachmentPath.InnerString(), queryString.InnerString(), includeSubFolders.InnerBoolean(), subFolderName.InnerString(), skipRootFolder.InnerBoolean(), useUniqueFileName.InnerBoolean());
+                XmlInputConfiguration xmlConfig = new XmlInputConfiguration(userName.InnerString(), password.InnerString(), exchangeVersion.InnerInt<ExchangeVersion>(), useManualServiceURL.InnerBoolean(), serviceURL.InnerString(), useDifferentMailbox.InnerBoolean(), mailbox.InnerString(), folder.InnerInt<WellKnownFolderName>(), includeRecurringEvents.InnerBoolean(), startDate.InnerDateTime(), endDate.InnerDateTime(), attachmentPath.InnerString(), queryString.InnerString(), includeSubFolders.InnerBoolean(), subFolderName.InnerString(), skipRootFolder.InnerBoolean(), useUniqueFileName.InnerBoolean(), attachmentFilter.InnerString());
 
                 // Find all of the Field elements in the configuration.
                 XmlNodeList fields = eConfig.SelectNodes("Fields/Field");

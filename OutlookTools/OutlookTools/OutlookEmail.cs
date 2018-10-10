@@ -32,6 +32,7 @@ namespace OutlookTools
         public string SubFolderName { get; set; }
         public bool SkipRootFolder { get; set; }
         public bool UseUniqueFileName { get; set; }
+        public string AttachmentFilter { get; set; }
         public PropertySet Fields { get; set; }
 
         static bool RedirectionCallback(string url)
@@ -170,13 +171,11 @@ namespace OutlookTools
             List<ItemAttachment> attachments = new List<ItemAttachment>();
 
             // Iterate through the attachments collection and load each attachment.
-            foreach (Attachment attachment in item.Attachments)
+            foreach (Attachment attachment in item.Attachments.Where(x => x.Name.Contains(AttachmentFilter)))
             {
                 if (attachment is FileAttachment)
                 {
                     FileAttachment fileAttachment = (FileAttachment)attachment;
-
-                    MemoryStream ms = new MemoryStream();
 
                     // Save the extracted attachment to the location specified in the tool's configuration UI.
                     string attachmentName = UseUniqueFileName ? String.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(fileAttachment.Name), DateTime.Now.ToFileTime().ToString(), Path.GetExtension(fileAttachment.Name)) : fileAttachment.Name;

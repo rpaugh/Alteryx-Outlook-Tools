@@ -151,6 +151,10 @@ namespace OutlookTools
                     {
                         propertyDefinitionBase[i] = (PropertyDefinitionBase)typeof(AppointmentSchema).GetField(xmlConfig.Fields[i].Name).GetValue(null);
                     }
+                    else if ((WellKnownFolderName)xmlConfig.Folder == WellKnownFolderName.Inbox && typeof(EmailMessageSchema).GetField(xmlConfig.Fields[i].Name) != null)
+                    {
+                        propertyDefinitionBase[i] = (PropertyDefinitionBase)typeof(EmailMessageSchema).GetField(xmlConfig.Fields[i].Name).GetValue(null);
+                    }
                     else if ((WellKnownFolderName)xmlConfig.Folder == WellKnownFolderName.Tasks && typeof(TaskSchema).GetField(xmlConfig.Fields[i].Name) != null)
                     {
                         propertyDefinitionBase[i] = (PropertyDefinitionBase)typeof(TaskSchema).GetField(xmlConfig.Fields[i].Name).GetValue(null);
@@ -162,7 +166,7 @@ namespace OutlookTools
                 }
 
                 // Assign the configuration settings and field list to the OutlookEmail object.
-                OutlookEmail email = new OutlookEmail() { UserName = xmlConfig.UserName, Password = xmlConfig.Password, ExchangeServerVersion = xmlConfig.ExchangeVersion, UseManualServiceURL = xmlConfig.UseManualServiceURL, ServiceURL = xmlConfig.ServiceURL, UseDifferentMailbox = xmlConfig.UseDifferentMailbox, Mailbox = xmlConfig.Mailbox, Folder = (WellKnownFolderName)xmlConfig.Folder, IncludeRecurringEvents = xmlConfig.IncludeRecurringEvents, StartDate = xmlConfig.StartDate, EndDate = xmlConfig.EndDate, AttachmentPath = xmlConfig.AttachmentPath, QueryString = xmlConfig.QueryString, IncludeSubFolders = xmlConfig.IncludeSubFolders, SubFolderName = xmlConfig.SubFolderName, SkipRootFolder = xmlConfig.SkipRootFolder, UseUniqueFileName = xmlConfig.UseUniqueFileName };
+                OutlookEmail email = new OutlookEmail() { UserName = xmlConfig.UserName, Password = xmlConfig.Password, ExchangeServerVersion = xmlConfig.ExchangeVersion, UseManualServiceURL = xmlConfig.UseManualServiceURL, ServiceURL = xmlConfig.ServiceURL, UseDifferentMailbox = xmlConfig.UseDifferentMailbox, Mailbox = xmlConfig.Mailbox, Folder = (WellKnownFolderName)xmlConfig.Folder, IncludeRecurringEvents = xmlConfig.IncludeRecurringEvents, StartDate = xmlConfig.StartDate, EndDate = xmlConfig.EndDate, AttachmentPath = xmlConfig.AttachmentPath, QueryString = xmlConfig.QueryString, IncludeSubFolders = xmlConfig.IncludeSubFolders, SubFolderName = xmlConfig.SubFolderName, SkipRootFolder = xmlConfig.SkipRootFolder, UseUniqueFileName = xmlConfig.UseUniqueFileName, AttachmentFilter = xmlConfig.AttachmentFilter };
                 email.Fields = new PropertySet(propertyDefinitionBase);
 
                 // Get the list of items (this includes attachments if the Attachment field was selected for output).

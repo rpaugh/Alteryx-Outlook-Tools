@@ -27,7 +27,7 @@ namespace OutlookTools
 
         public static DateTime InnerDateTime(this XmlElement xml)
         {
-            DateTime value = DateTime.MinValue;
+            DateTime value = DateTime.Now;
 
             if (xml != null)
             {

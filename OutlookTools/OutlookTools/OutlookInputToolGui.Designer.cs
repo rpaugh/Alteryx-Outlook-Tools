@@ -64,6 +64,8 @@
             this.dpEndDate = new System.Windows.Forms.DateTimePicker();
             this.label12 = new System.Windows.Forms.Label();
             this.chkIncludeRecurringEvents = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtAttachmentFilter = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -171,7 +173,7 @@
             // 
             // txtQueryString
             // 
-            this.txtQueryString.Location = new System.Drawing.Point(4, 788);
+            this.txtQueryString.Location = new System.Drawing.Point(2, 839);
             this.txtQueryString.Name = "txtQueryString";
             this.txtQueryString.Size = new System.Drawing.Size(315, 20);
             this.txtQueryString.TabIndex = 13;
@@ -180,7 +182,7 @@
             // 
             this.lblQueryStringHelpLink.AutoSize = true;
             this.lblQueryStringHelpLink.LinkArea = new System.Windows.Forms.LinkArea(14, 1);
-            this.lblQueryStringHelpLink.Location = new System.Drawing.Point(6, 768);
+            this.lblQueryStringHelpLink.Location = new System.Drawing.Point(6, 819);
             this.lblQueryStringHelpLink.Name = "lblQueryStringHelpLink";
             this.lblQueryStringHelpLink.Size = new System.Drawing.Size(88, 17);
             this.lblQueryStringHelpLink.TabIndex = 14;
@@ -386,11 +388,29 @@
             this.chkIncludeRecurringEvents.UseVisualStyleBackColor = true;
             this.chkIncludeRecurringEvents.Click += new System.EventHandler(this.chkIncludeRecurringEvents_Click);
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(4, 770);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(132, 13);
+            this.label13.TabIndex = 36;
+            this.label13.Text = "Attachment Text Contains:";
+            // 
+            // txtAttachmentFilter
+            // 
+            this.txtAttachmentFilter.Location = new System.Drawing.Point(3, 787);
+            this.txtAttachmentFilter.Name = "txtAttachmentFilter";
+            this.txtAttachmentFilter.Size = new System.Drawing.Size(314, 20);
+            this.txtAttachmentFilter.TabIndex = 37;
+            // 
             // OutlookInputToolGui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.Controls.Add(this.txtAttachmentFilter);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.chkIncludeRecurringEvents);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.dpEndDate);
@@ -427,7 +447,7 @@
             this.Controls.Add(this.txtUserName);
             this.Controls.Add(this.label1);
             this.Name = "OutlookInputToolGui";
-            this.Size = new System.Drawing.Size(323, 813);
+            this.Size = new System.Drawing.Size(323, 863);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -471,5 +491,7 @@
         private System.Windows.Forms.DateTimePicker dpEndDate;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.CheckBox chkIncludeRecurringEvents;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtAttachmentFilter;
     }
 }
