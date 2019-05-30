@@ -155,6 +155,10 @@ namespace OutlookTools
                     {
                         propertyDefinitionBase[i] = (PropertyDefinitionBase)typeof(EmailMessageSchema).GetField(xmlConfig.Fields[i].Name).GetValue(null);
                     }
+                    else if ((WellKnownFolderName)xmlConfig.Folder == WellKnownFolderName.SentItems && typeof(EmailMessageSchema).GetField(xmlConfig.Fields[i].Name) != null)
+                    {
+                        propertyDefinitionBase[i] = (PropertyDefinitionBase)typeof(EmailMessageSchema).GetField(xmlConfig.Fields[i].Name).GetValue(null);
+                    }
                     else if ((WellKnownFolderName)xmlConfig.Folder == WellKnownFolderName.Tasks && typeof(TaskSchema).GetField(xmlConfig.Fields[i].Name) != null)
                     {
                         propertyDefinitionBase[i] = (PropertyDefinitionBase)typeof(TaskSchema).GetField(xmlConfig.Fields[i].Name).GetValue(null);
