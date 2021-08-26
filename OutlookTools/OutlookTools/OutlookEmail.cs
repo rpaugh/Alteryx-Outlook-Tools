@@ -44,6 +44,7 @@ namespace OutlookTools
         {
             _oItems = new List<OItem>();
 
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             ExchangeService service = new ExchangeService((ExchangeVersion)ExchangeServerVersion);
             String mailbox = (UseDifferentMailbox ? Mailbox : UserName);
             List<Folder> folders = new List<Folder>();

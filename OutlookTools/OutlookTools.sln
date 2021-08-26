@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookTools", "OutlookTools\OutlookTools.csproj", "{0E177502-70B0-44DC-AD97-AE4BEABA60A5}"
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "OutlookToolsSetup", "OutlookToolsSetup\OutlookToolsSetup.isproj", "{6AB17605-856E-473B-B3BC-088B0EC88A09}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0E177502-70B0-44DC-AD97-AE4BEABA60A5} = {0E177502-70B0-44DC-AD97-AE4BEABA60A5}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

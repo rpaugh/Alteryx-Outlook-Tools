@@ -343,7 +343,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{F8123D6C-1F83-4DDC-A352-00676B1C6DC6}</td><td>SETTINGS</td><td>258</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{96CDF3CA-21EF-4273-8B5A-DF086CD615A0}</td><td>ADDITIONALPLUGINS</td><td>258</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT4</td><td>{786EC884-E0B6-450C-A17F-77091B6A4832}</td><td>OUTLOOK</td><td>258</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>OutlookTools.Primary_output1</td><td>{5A0818BA-0FAC-435A-8E2D-52201CB6008C}</td><td>OUTLOOK</td><td>258</td><td/><td>outlooktools.primary_output1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>OutlookTools.Primary_output</td><td>{36A94FC0-A6EE-4F41-A10A-902209439695}</td><td>OUTLOOK</td><td>258</td><td/><td>outlooktools.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1057,9 +1057,9 @@
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT4</td></row>
-		<row><td>INSTALLDIR</td><td>OutlookTools.Primary_output1</td></row>
+		<row><td>INSTALLDIR</td><td>OutlookTools.Primary_output</td></row>
 		<row><td>OUTLOOK</td><td>ISX_DEFAULTCOMPONENT4</td></row>
-		<row><td>OUTLOOK</td><td>OutlookTools.Primary_output1</td></row>
+		<row><td>OUTLOOK</td><td>OutlookTools.Primary_output</td></row>
 		<row><td>ProgramFiles64Folder</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>SETTINGS</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 	</table>
@@ -1884,7 +1884,7 @@
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT4</td></row>
-		<row><td>AlwaysInstall</td><td>OutlookTools.Primary_output1</td></row>
+		<row><td>AlwaysInstall</td><td>OutlookTools.Primary_output</td></row>
 	</table>
 
 	<table name="File">
@@ -1899,7 +1899,7 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>outlooktools.primary_output1</td><td>OutlookTools.Primary_output1</td><td>OutlookTools.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;OutlookTools&gt;|Built</td><td>3</td><td/></row>
+		<row><td>outlooktools.primary_output</td><td>OutlookTools.Primary_output</td><td>OutlookTools.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;OutlookTools&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2045,7 +2045,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_15DD3628_F7C7_4588_B878_EAC0EC8B233D_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_E27C2EA7_C4B0_44C6_AAD3_4D9327BCB6A6_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT4</td><td/><td/><td>_BDC0FB6C_B3A4_4BBF_8424_A559ECB0AE8C_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>OutlookTools.Primary_output1</td><td/><td/><td>_ADD4EF0D_F7DD_49DF_A87B_9D599AC1A9EB_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>OutlookTools.Primary_output</td><td/><td/><td>_CCBCCA0D_2DE9_488C_BC8C_57BB6848AC50_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2604,7 +2604,7 @@
 		<col def="I2">Order</col>
 		<col def="I2">ISSetupLocation</col>
 		<col def="S255">ISReleaseFlags</col>
-		<row><td>_540668CC_269F_4614_9999_56DE7E281D97_</td><td>Microsoft .NET Framework 4.5.2 Full.prq</td><td/><td/><td/></row>
+		<row><td>_F25E13A6_F53F_4C72_8500_93E5B039BDDB_</td><td>Microsoft .NET Framework 4.6 Full.prq</td><td/><td/><td/></row>
 	</table>
 
 	<table name="ISSetupType">
@@ -2638,7 +2638,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Paugh Tech</td><td>0</td><td/><td>-878328759</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Paugh Tech</td><td>0</td><td/><td>-735450326</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>732265836</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>732265836</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>732265836</td></row>
@@ -3738,8 +3738,8 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>732265836</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>732265836</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>732265836</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>https://sites.google.com/view/paughtech/alteryx-tools/alteryx-outlook-input</td><td>0</td><td/><td>413532334</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Paugh Tech</td><td>0</td><td/><td>-878328759</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.PaughTech.com</td><td>0</td><td/><td>-735450326</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Paugh Tech</td><td>0</td><td/><td>-735450326</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>OUTLOO~1.INI|OutlookInputPlugin.ini</td><td>0</td><td/><td>-878326135</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Settings</td><td>0</td><td/><td>-878327670</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>x64Path</td><td>0</td><td/><td>-878344503</td></row>
@@ -3975,8 +3975,8 @@
 		<col def="S0">Value</col>
 		<row><td>ActiveLanguage</td><td>1033</td></row>
 		<row><td>Comments</td><td/></row>
-		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="de9f554a3bc05c12be9c31b998217995">
-UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
+		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="6d78a46bf2c52ee27034bbcad20f7f95">
+QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 			</td></row>
 		<row><td>DefaultProductConfiguration</td><td>Express</td></row>
 		<row><td>EnableSwidtag</td><td>1</td></row>
@@ -4369,7 +4369,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>ProductCode</td><td>{246542B3-25A9-4F3D-AFBA-5B4A85DC9A90}</td><td/></row>
 		<row><td>ProductName</td><td>Alteryx Outlook Tools</td><td/></row>
-		<row><td>ProductVersion</td><td>2.0.0</td><td/></row>
+		<row><td>ProductVersion</td><td>2.2.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
